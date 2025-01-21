@@ -214,8 +214,8 @@ function DataReportMTC() {
         </div>
       </Stack>
       <br />
-      <TableContainer className="bg-card rounded-md" sx={{ overflowX: "auto" }}>
-        <Table key={colorMode} variant="simple">
+      <TableContainer className="bg-card rounded-md" sx={{ overflowX: "auto", maxWidth: "90%" }}>
+        <Table key={colorMode} variant="simple" sx={{ minWidth: "1180px"}}>
           <Thead>
             <Tr>
               <Th sx={{
