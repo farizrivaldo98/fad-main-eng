@@ -38,7 +38,7 @@ function EditProfile() {
       formData.append("data", JSON.stringify(obj));
 
       try {
-        const response = await axios.post("http://10.126.15.141:8002/upload", formData);
+        const response = await axios.post("http://10.126.15.137:8002/upload", formData);
         console.log("Upload Success:", response);
         alert("Image uploaded successfully!");
       } catch (error) {
@@ -51,7 +51,7 @@ function EditProfile() {
   };
 
   const imageData = userGlobal.imagePath
-    ? `http://10.126.15.141:8002${userGlobal.imagePath}`
+    ? `http://10.126.15.137:8002${userGlobal.imagePath}`
     : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
 
   return (

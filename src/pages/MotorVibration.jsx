@@ -67,7 +67,7 @@ function Motor() {
     setError(false); // Reset error state
     try {
       let response = await axios.get(
-        "http://10.126.15.141:8002/part/vibrate",
+        "http://10.126.15.137:8002/part/vibrate",
         {
           params: {
             machine: machinePicker,
@@ -80,7 +80,7 @@ function Motor() {
       setMainData(response.data); // Store fetched data in state
       setIsTableVisible(true); // Show the table
      // Fetching data for chart (vibrate chart)
-     let chartResponse = await axios.get("http://10.126.15.141:8002/part/vibrateChart", {
+     let chartResponse = await axios.get("http://10.126.15.137:8002/part/vibrateChart", {
       params: {
           machine: machinePicker,
           start: datePickerStart,
@@ -113,7 +113,7 @@ function Motor() {
   }
 
 
-    let chartResponse2 = await axios.get("http://10.126.15.141:8002/part/vibrateChart", {
+    let chartResponse2 = await axios.get("http://10.126.15.137:8002/part/vibrateChart", {
       params: {
         machine: machinePicker,
         start: datePickerStart,

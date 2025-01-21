@@ -31,7 +31,7 @@ function Header()  {
 
 
   // if (userGlobal.imagePath) {
-  //   imageData = `http://10.126.15.141:8002${userGlobal.imagePath}`;
+  //   imageData = `http://10.126.15.137:8002${userGlobal.imagePath}`;
   // } else {
   //   imageData =
   //     "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
@@ -86,7 +86,7 @@ function Header()  {
    
 
     const imageData = userGlobal.imagePath
-    ? `http://10.126.15.141:8002${userGlobal.imagePath}`
+    ? `http://10.126.15.137:8002${userGlobal.imagePath}`
     : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png";
 
     

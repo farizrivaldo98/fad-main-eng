@@ -64,7 +64,7 @@ function AvabilityMachine() {
 
   const fetchAvaMachine = async (date) => {
     let response = await axios.get(
-      "http://10.126.15.141:8002/part/avamachine",
+      "http://10.126.15.137:8002/part/avamachine",
       {
         params: {
           date: date,
@@ -75,7 +75,7 @@ function AvabilityMachine() {
   };
 
   const fetchPart = async (data) => {
-    let response = await axios.get("http://10.126.15.141:8002/part/get", {
+    let response = await axios.get("http://10.126.15.137:8002/part/get", {
       params: {
         date: data,
       },

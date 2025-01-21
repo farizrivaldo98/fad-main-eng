@@ -39,7 +39,7 @@ function AvabilityOPE() {
   });
 
   const fetchAvaLine = async (date) => {
-    let response = await axios.get("http://10.126.15.141:8002/part/avaline", {
+    let response = await axios.get("http://10.126.15.137:8002/part/avaline", {
       params: {
         date: date,
       },

@@ -57,7 +57,7 @@ function Sartorius () {
 
   const fetchTableData = async () => {
     let response = await Axios.get(
-      `http://10.126.15.141:8002/part/getSartoriusData`,
+      `http://10.126.15.137:8002/part/getSartoriusData`,
       {
         params: {
           start: startDate,
@@ -70,7 +70,7 @@ function Sartorius () {
 
   const fetchGraphSartorius = async () => {
     let response = await Axios.get(
-      `http://10.126.15.141:8002/part/getSartoriusGraph`,
+      `http://10.126.15.137:8002/part/getSartoriusGraph`,
       {
         params: {
           start: startDate,

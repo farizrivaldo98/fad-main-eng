@@ -49,7 +49,7 @@ function MaintenanceBreakdown() {
   const hoverBorderColor = useColorModeValue("rgba(var(--color-border2))", "rgba(var(--color-border2))");
 
   // const fetchDataPLC = async () => {
-  //   let response = await axios.get("http://10.126.15.141:8002/plc");
+  //   let response = await axios.get("http://10.126.15.137:8002/plc");
   //   let ava = response.data
   //     .replace(/455|(\r\n|\n|\r)/g, "")
   //     .replace(/(\w+)\s*:/g, '"$1":')

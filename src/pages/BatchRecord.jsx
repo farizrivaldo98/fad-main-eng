@@ -52,14 +52,14 @@ function BatchRecord() {
 
     // Fetch Line data
     const fetchLine = async () => {
-      let response = await axios.get("http://10.126.15.141:8002/part/lineData");
+      let response = await axios.get("http://10.126.15.137:8002/part/lineData");
       setFetchLineData(response.data);
     };
   
     // Fetch Process data based on the selected line
     const fetchProces = async (line) => {
       let response = await axios.get(
-        "http://10.126.15.141:8002/part/procesData",
+        "http://10.126.15.137:8002/part/procesData",
         { params: { line_name: line } }
       );
       setFetchProcesData(response.data);
@@ -68,7 +68,7 @@ function BatchRecord() {
     // Fetch Machine data based on the selected line and process
     const fetchMachine = async (line, proces) => {
       let response = await axios.get(
-        "http://10.126.15.141:8002/part/machineData",
+        "http://10.126.15.137:8002/part/machineData",
         { params: { line_name: line, proces_name: proces } }
       );
       setFetchMachineData(response.data);
@@ -127,8 +127,8 @@ function BatchRecord() {
       // Define endpoint
       const endpoint =
         line === "line1"
-          ? "http://10.126.15.141:8002/part/BatchRecord1"
-          : "http://10.126.15.141:8002/part/BatchRecord3";
+          ? "http://10.126.15.137:8002/part/BatchRecord1"
+          : "http://10.126.15.137:8002/part/BatchRecord3";
     
       try {
         const response = await axios.get(endpoint, {
@@ -183,8 +183,8 @@ function BatchRecord() {
     
         const endpoint =
           newLine === "line1"
-            ? "http://10.126.15.141:8002/part/BatchRecord1"
-            : "http://10.126.15.141:8002/part/BatchRecord3";
+            ? "http://10.126.15.137:8002/part/BatchRecord1"
+            : "http://10.126.15.137:8002/part/BatchRecord3";
     
         const response = await axios.get(endpoint, {
           params: { area, start: startDate, finish: finishDate },

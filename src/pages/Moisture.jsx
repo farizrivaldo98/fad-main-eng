@@ -57,7 +57,7 @@ const Moisture = () => {
 
   const fetchTableData = async () => {
     let response = await Axios.get(
-      `http://10.126.15.141:8002/part/getMoistureData`,
+      `http://10.126.15.137:8002/part/getMoistureData`,
       {
         params: {
           start: startDate,
@@ -70,7 +70,7 @@ const Moisture = () => {
 
   const fetchGraphMoisture = async () => {
     let response = await Axios.get(
-      `http://10.126.15.141:8002/part/getMoistureGraph`,
+      `http://10.126.15.137:8002/part/getMoistureGraph`,
       {
         params: {
           start: startDate,

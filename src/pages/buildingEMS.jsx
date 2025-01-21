@@ -64,7 +64,7 @@ function BuildingEMS() {
   useEffect(() => {
     const fetchData = async () => {
       let response = await axios.get(
-        "http://10.126.15.141:8002/part/getTabelEMS"
+        "http://10.126.15.137:8002/part/getTabelEMS"
       );
       setDataListTable(response.data);
     };
@@ -91,7 +91,7 @@ function BuildingEMS() {
   
     try {
       const response1 = await axios.get(
-        "http://10.126.15.141:8002/part/getTempChart",
+        "http://10.126.15.137:8002/part/getTempChart",
         {
           params: {
             area: areaPicker,
@@ -102,7 +102,7 @@ function BuildingEMS() {
         }
       ); 
       const response2 = await axios.get(
-        "http://10.126.15.141:8002/part/getTempChart",
+        "http://10.126.15.137:8002/part/getTempChart",
         {
           params: {
             area: areaPicker,
@@ -113,7 +113,7 @@ function BuildingEMS() {
         }
       );
       const response3 = await axios.get(
-        "http://10.126.15.141:8002/part/getTempChart",
+        "http://10.126.15.137:8002/part/getTempChart",
         {
           params: {
             area: areaPicker,
@@ -124,7 +124,7 @@ function BuildingEMS() {
         }
       );
       const response4 = await axios.get(
-        "http://10.126.15.141:8002/part/getAllDataEMS",
+        "http://10.126.15.137:8002/part/getAllDataEMS",
         {
           params: {
             area: areaPicker,

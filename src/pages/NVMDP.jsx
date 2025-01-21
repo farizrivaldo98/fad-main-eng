@@ -25,7 +25,7 @@ const NVMDP = () => {
     // });
   
     useEffect(() => {
-      const socket = new WebSocket("ws://10.126.15.141:8081");
+      const socket = new WebSocket("ws://10.126.15.137:8081");
   
       socket.onopen = () => {
         console.log("WebSocket connected");

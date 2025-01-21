@@ -58,7 +58,7 @@ function HandoverMaintenance() {
   //=================================FETCH new=================
 
   const fetchLastPRD = async () => {
-    let response = await axios.get("http://10.126.15.141:8002/part/lastPRD");
+    let response = await axios.get("http://10.126.15.137:8002/part/lastPRD");
 
     const tanggalObjek = new Date(response.data[0].datetime);
     const tanggalHasil = tanggalObjek
@@ -75,7 +75,7 @@ function HandoverMaintenance() {
   };
 
   const fetchLastMTC = async () => {
-    let response = await axios.get("http://10.126.15.141:8002/part/lastMTC");
+    let response = await axios.get("http://10.126.15.137:8002/part/lastMTC");
 
     const tanggalObjek = new Date(response.data[0].tanggal);
     const tanggalHasil = tanggalObjek
@@ -89,13 +89,13 @@ function HandoverMaintenance() {
   };
 
   const fetchLine = async () => {
-    let response = await axios.get("http://10.126.15.141:8002/part/lineData");
+    let response = await axios.get("http://10.126.15.137:8002/part/lineData");
     setFetchLineData(response.data);
   };
 
   const fetchProces = async (line) => {
     let response = await axios.get(
-      "http://10.126.15.141:8002/part/procesData",
+      "http://10.126.15.137:8002/part/procesData",
       {
         params: {
           line_name: line,
@@ -108,7 +108,7 @@ function HandoverMaintenance() {
 
   const fetchMachine = async (line, proces) => {
     let response = await axios.get(
-      "http://10.126.15.141:8002/part/machineData",
+      "http://10.126.15.137:8002/part/machineData",
       {
         params: {
           line_name: line,
@@ -121,7 +121,7 @@ function HandoverMaintenance() {
 
   const fetchLocation = async (line, proces, machine) => {
     let response = await axios.get(
-      "http://10.126.15.141:8002/part/locationData",
+      "http://10.126.15.137:8002/part/locationData",
       {
         params: {
           line_name: line,
@@ -306,7 +306,7 @@ function HandoverMaintenance() {
     console.log(tempData);
 
     let response = await axios.post(
-      "http://10.126.15.141:8002/part/reportmtc",
+      "http://10.126.15.137:8002/part/reportmtc",
       tempData
     );
 
@@ -412,7 +412,7 @@ function HandoverMaintenance() {
     };
 
     let response = await axios.post(
-      "http://10.126.15.141:8002/part/reportprd",
+      "http://10.126.15.137:8002/part/reportprd",
       tempData
     );
     alert(response.data.message);

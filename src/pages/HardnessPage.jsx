@@ -58,14 +58,14 @@ function HardnessPage() {
 
 
   // const fetchData = async () => {
-  //   let response = await Axios.get("http://10.126.15.141:8002/part/getHardnessData");
+  //   let response = await Axios.get("http://10.126.15.137:8002/part/getHardnessData");
   //   setDataInstrument(response.data);
   // };
 
   // Function to fetch data for charts'
   // const fetchTableData1 = async () => {
   //   let response = await Axios.get(
-  //     `http://10.126.15.141:8002/part/getHardnessData`,
+  //     `http://10.126.15.137:8002/part/getHardnessData`,
   //     {
   //       params: {
   //         start: startDate,
@@ -78,7 +78,7 @@ function HardnessPage() {
 
   const fetchTableData1 = async () => {
     let response = await Axios.get(
-      `http://10.126.15.141:8002/part/getHardnessData`,
+      `http://10.126.15.137:8002/part/getHardnessData`,
       {
         params: {
           start: startDate,
@@ -98,7 +98,7 @@ function HardnessPage() {
 
   const fetchGraphHardness = async () => {
     let response = await Axios.get(
-      `http://10.126.15.141:8002/part/getHardnessGraph`,
+      `http://10.126.15.137:8002/part/getHardnessGraph`,
       {
         params: {
           start: startDate,
@@ -118,7 +118,7 @@ function HardnessPage() {
     // console.log("start", (startDate));
     // console.log("finish", (finishDate));   
     let response2 = await Axios.get(
-      `http://10.126.15.141:8002/part/getThicknessGraph`,
+      `http://10.126.15.137:8002/part/getThicknessGraph`,
       {
         params: {
           start: startDate,
@@ -135,7 +135,7 @@ function HardnessPage() {
     setThicknessData(processedData2);
 
     let response3 = await Axios.get(
-      `http://10.126.15.141:8002/part/getDiameterGraph`,
+      `http://10.126.15.137:8002/part/getDiameterGraph`,
       {
         params: {
           start: startDate,
@@ -157,7 +157,7 @@ function HardnessPage() {
   // const fetchChartData = async () => {
   //   try {
   //     const hardnessResponse = await Axios.get(
-  //       `http://10.126.15.141:8002/part/getHardnessGraph?start=${startDate}&finish=${finishDate}`
+  //       `http://10.126.15.137:8002/part/getHardnessGraph?start=${startDate}&finish=${finishDate}`
   //     );
   //     setHardnessData(
   //       hardnessResponse.data.map((item) => ({
@@ -167,7 +167,7 @@ function HardnessPage() {
   //     );
 
   //     const thicknessResponse = await Axios.get(
-  //       `http://10.126.15.141:8002/part/getThicknessGraph?start=${startDate}&finish=${finishDate}`
+  //       `http://10.126.15.137:8002/part/getThicknessGraph?start=${startDate}&finish=${finishDate}`
   //     );
   //     setThicknessData(
   //       thicknessResponse.data.map((item) => ({
@@ -177,7 +177,7 @@ function HardnessPage() {
   //     );
 
   //     const diameterResponse = await Axios.get(
-  //       `http://10.126.15.141:8002/part/getDiameterGraph?start=${startDate}&finish=${finishDate}`
+  //       `http://10.126.15.137:8002/part/getDiameterGraph?start=${startDate}&finish=${finishDate}`
   //     );
   //     setDiameterData(
   //       diameterResponse.data.map((item) => ({
@@ -193,7 +193,7 @@ function HardnessPage() {
   // Function to fetch table data
   // const fetchTableData = async () => {
   //   try {
-  //     const response = await Axios.get("http://10.126.15.141:8002/part/getHardnessData");
+  //     const response = await Axios.get("http://10.126.15.137:8002/part/getHardnessData");
   //     setTableData(response.data);
   //   } catch (error) {
   //     console.error("Error fetching table data:", error);

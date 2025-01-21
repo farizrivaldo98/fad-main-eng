@@ -30,7 +30,6 @@ import BatchRecord from "./pages/BatchRecord";
 import LandingPage from "./pages/LandingPage";
 import Header from "./components/header";
 import Dashboard from "./pages/Dashboard";
-import ResetPass from "./pages/resetPass";
 import Chart02 from "./pages/chart02";
 
 
@@ -81,14 +80,7 @@ function App() {
       </Routes>
     );
   }
-  if (location.pathname === "/resetpass") {
-    // Separate layout for landing page, without grid
-    return (
-      <Routes>
-        <Route path="/resetpass" element={<ResetPass />} />
-      </Routes>
-    );
-  }
+
 
 
   if (levelData === 5) {

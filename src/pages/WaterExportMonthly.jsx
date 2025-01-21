@@ -36,7 +36,7 @@ function WaterExportMonthly() {
 
     const fetchWaterTotalizer = async () => {
         let response1 = await axios.get(
-            "http://10.126.15.141:8002/part/ExportWaterTotalizerMonthly",
+            "http://10.126.15.137:8002/part/ExportWaterTotalizerMonthly",
             {
               params: {
                 start: startDate,
@@ -49,7 +49,7 @@ function WaterExportMonthly() {
     };
     const fetchWaterConsumption = async () => {
         let response = await axios.get(
-            "http://10.126.15.141:8002/part/ExportWaterConsumptionMonthly", 
+            "http://10.126.15.137:8002/part/ExportWaterConsumptionMonthly", 
             {
               params: {
                 start: startDate,
