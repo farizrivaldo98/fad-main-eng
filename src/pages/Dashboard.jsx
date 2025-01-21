@@ -157,7 +157,7 @@ function Dashboard() {
               </svg>
             </div>
             <div>
-              <h1 className="text-2xl text-black dark:text-white font-bold font-DMSans">MVMDP</h1>
+              <h1 className="text-2xl text-black dark:text-white font-bold font-DMSans">MVMDPpp</h1>
               <span className="block text-xl text-black dark:text-white font-semibold">{filteredValue ?? "Loading..."}</span>
               <span className="block text-gray-500">Kwh</span>
             </div>
