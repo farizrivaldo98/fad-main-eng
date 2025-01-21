@@ -822,30 +822,30 @@ export default function WaterManagement() {
           <div>
             <h2 className="mb-1">Flow Meter</h2>
             <Select placeholder="Select Flow Meter" onChange={getWaterArea}>
-              <option value="cMT-BWT_PDAM_Sehari_data">PDAM</option>
-              <option value="cMT-BWT_Dom_sehari_data">Domestik</option>
-              <option value="cMT-BWT_Softwater_sehari_data">Softwater</option>
-              <option value="cMT-BWT_Boiler_sehari_data">Boiler</option>
-              <option value="cMT-BWT_Inlet_Sehari_data">Inlet Pretreatment</option>
-              <option value="cMT-BWT_Outlet_sehari_data">Outlet Pretreatment</option>
-              <option value="cMT-BWT_RO_sehari_data">Reject Osmotronn</option>
-              <option value="cMT-BWT_Chiller_sehari_data">Chiller</option>
-              <option value="cMT-BWT_Taman_sehari_data">Taman & Pos Jaga</option>
-              <option value="cMT-BWT_WWTP_Biologi_1d_data">WWTP Biologi</option>
-              <option value="cMT-BWT_WWTP_Kimia_1d_data">WWTP Kimia</option>
-              <option value="cMT-BWT_WWTP_Outlet_1d_data">WWTP Outlet</option>
-              <option value="cMT-BWT_CIP_Sehari_data">CIP</option>
-              <option value="cMT-BWT_Hotwater_Sehari_data">Hotwater</option>
-              <option value="cMT-BWT_Lab_Sehari_data">Lab</option>
-              <option value="cMT-BWT_AtsToilet_Sehari_data">Atas Toilet lt.2</option>
-              <option value="cMT-BWT_Atas QC_Sehari_data">Atas Lab QC</option>
-              <option value="cMT-BWT_Workshop_Sehari_data">Workshop</option>
-              <option value="cMT-BWT_AirMancur_Sehari_data">Air Mancur</option>
-              <option value="cMT-BWT_Osmotron_Sehari_data">Osmotron</option>
-              <option value="cMT-BWT_Loopo_Sehari_data">Loopo</option>
-              <option value="cMT-BWT_Produksi_Sehari_data">Produksi</option>
-              <option value="cMT-BWT_Washing_Sehari_data">Washing</option>
-              <option value="cMT-BWT_Lantai1_Sehari_data">Lantai 1</option>
+            <option value="cMT-DB-WATER-UTY_PDAM_Sehari_data">PDAM</option>
+              <option value="cMT-DB-WATER-UTY_Dom_sehari_data">Domestik</option>
+              <option value="cMT-DB-WATER-UTY_Softwater_sehari_data">Softwater</option>
+              <option value="cMT-DB-WATER-UTY_Boiler_sehari_data">Boiler</option>
+              <option value="cMT-DB-WATER-UTY_Inlet_Sehari_data">Inlet Pretreatment</option>
+              <option value="cMT-DB-WATER-UTY_Outlet_sehari_data">Outlet Pretreatment</option>
+              <option value="cMT-DB-WATER-UTY_RO_sehari_data">Reject Osmotronn</option>
+              <option value="cMT-DB-WATER-UTY_Chiller_sehari_data">Chiller</option>
+              <option value="cMT-DB-WATER-UTY_Taman_sehari_data">Taman & Pos Jaga</option>
+              <option value="cMT-DB-WATER-UTY_WWTP_Biologi_1d_data">WWTP Biologi</option>
+              <option value="cMT-DB-WATER-UTY_WWTP_Kimia_1d_data">WWTP Kimia</option>
+              <option value="cMT-DB-WATER-UTY_WWTP_Outlet_1d_data">WWTP Outlet</option>
+              <option value="cMT-DB-WATER-UTY_CIP_Sehari_data">CIP</option>
+              <option value="cMT-DB-WATER-UTY_Hotwater_Sehari_data">Hotwater</option>
+              <option value="cMT-DB-WATER-UTY_Lab_Sehari_data">Lab</option>
+              <option value="cMT-DB-WATER-UTY_AtsToilet_Sehari_data">Atas Toilet lt.2</option>
+              <option value="cMT-DB-WATER-UTY_Atas QC_Sehari_data">Atas Lab QC</option>
+              <option value="cMT-DB-WATER-UTY_Workshop_Sehari_data">Workshop</option>
+              <option value="cMT-DB-WATER-UTY_AirMancur_Sehari_data">Air Mancur</option>
+              <option value="cMT-DB-WATER-UTY_Osmotron_Sehari_data">Osmotron</option>
+              <option value="cMT-DB-WATER-UTY_Loopo_Sehari_data">Loopo</option>
+              <option value="cMT-DB-WATER-UTY_Produksi_Sehari_data">Produksi</option>
+              <option value="cMT-DB-WATER-UTY_Washing_Sehari_data">Washing</option>
+              <option value="cMT-DB-WATER-UTY_Lantai1_Sehari_data">Lantai 1</option>
             </Select>
           </div>
           <div>
