@@ -33,7 +33,9 @@ function BatchRecord() {
   const [newLine, setNewLine] = useState("");
   const [newProces, setNewProces] = useState("");
   const [newMachine, setNewMachine] = useState("");
+  const [dbMacchinem, setDbMachine] = useState("");
   const [selectedBatch, setSelectedBatch] = useState("");
+  const [allDataEBR, setAllDataEBR] = useState([])
 
   const [startDate, setStartDate] = useState("");
   const [finishDate, setFinishDate] = useState("");
@@ -76,8 +78,7 @@ function BatchRecord() {
   
     const fetchBatch = async (machine, start, finish, line, setMainData) => {
       let area = "";
-      console.log("Params sent to backend:", { area, start, finish });
-    
+      //console.log("Params sent to backend:", { area, start, finish });        
       if (line === "line1") {
         switch (machine) {
           case "PMA":
@@ -93,7 +94,7 @@ function BatchRecord() {
             area = "cMT-FHDGEA1_EBR_FBD_data";
             break;
           default:
-            console.error("Invalid machine selected for line1.");
+            //console.error("Invalid machine selected for line1.");
             return; // Exit early
         }
       } else if (line === "line3") {
@@ -118,6 +119,23 @@ function BatchRecord() {
         console.error("Invalid line selected.");
         return; // Exit early
       }
+      const area1 =
+          newLine === "line1"
+            ? {
+                PMA: "cMT-FHDGEA1_EBR_PMA_data",
+                Wetmill: "cMT-FHDGEA1_EBR_Wetmill_data",
+                EPH: "cMT-FHDGEA1_EBR_EPH_data",
+                FBD: "cMT-FHDGEA1_EBR_FBD_data",
+              }[newMachine]
+            : {
+                PMA: "cMT-GEA-L3_EBR_PMA_L3_data",
+                Wetmill: "cMT-GEA-L3_EBR_WETMILL_L3_data",
+                EPH: "cMT-GEA-L3_EBR_EPH_L3_data",
+                FBD: "cMT-GEA-L3_EBR_FBD_L3_data",
+              }[newMachine];
+              setDbMachine(area1)
+              console.log("Current machine:", dbMacchinem);
+              console.log("Selected batch:", selectedBatch);
     
       if (!area) {
         console.error("Area mapping failed.");
@@ -137,20 +155,38 @@ function BatchRecord() {
     
         if (response.data && Array.isArray(response.data)) {
           const batchData = response.data.map((item) => item.BATCH || "Unknown Batch"); // Extract BATCH
-          console.log("Batch data fetched:", batchData);
+          //console.log("Batch data fetched:", batchData);
           setFetchBatchData(batchData); // Update dropdown
         } else {
-          console.warn("No data received or data is not in array format.");
+          //console.warn("No data received or data is not in array format.");
           setFetchBatchData([]); // Clear dropdown
         }
       } catch (error) {
-        console.error("Error fetching batch data:", error);
+        //console.error("Error fetching batch data:", error);
         alert("Failed to fetch batch data. Please check your input and try again.");
       }
     };
+
+    const getDataEbrData = async () => {
+      let response = await axios.get(
+        "http://10.126.15.137:8002/part/SearchBatchRecord",{
+          params:{
+            area : dbMacchinem,
+            data : selectedBatch
+          }
+        }
+      )
+      setAllDataEBR(response.data)
+      
+      
+      
+      
+    }
     
     const handleSubmit = async (e) => {
-      e.preventDefault();
+      fetchBatch()
+      //e.preventDefault();
+      getDataEbrData()    
     
       // Ensure all necessary fields are filled
       if (!newMachine || !startDate || !finishDate || !newLine) {
@@ -161,43 +197,12 @@ function BatchRecord() {
       try {
         setMainData([]); // Reset main data before fetching
     
-        const area =
-          newLine === "line1"
-            ? {
-                PMA: "cMT-FHDGEA1_EBR_PMA_data",
-                Wetmill: "cMT-FHDGEA1_EBR_Wetmill_data",
-                EPH: "cMT-FHDGEA1_EBR_EPH_data",
-                FBD: "cMT-FHDGEA1_EBR_FBD_data",
-              }[newMachine]
-            : {
-                PMA: "cMT-GEA-L3_EBR_PMA_L3_data",
-                Wetmill: "cMT-GEA-L3_EBR_WETMILL_L3_data",
-                EPH: "cMT-GEA-L3_EBR_EPH_L3_data",
-                FBD: "cMT-GEA-L3_EBR_FBD_L3_data",
-              }[newMachine];
-    
-        if (!area) {
-          alert("Invalid machine selected. Please try again.");
-          return;
-        }
-    
-        const endpoint =
-          newLine === "line1"
-            ? "http://10.126.15.137:8002/part/BatchRecord1"
-            : "http://10.126.15.137:8002/part/BatchRecord3";
-    
-        const response = await axios.get(endpoint, {
-          params: { area, start: startDate, finish: finishDate },
-        });
-    
-        if (response.data && Array.isArray(response.data)) {
-          setMainData(response.data);
-          console.log("Fetched data:", response.data);
-        } else {
-          console.warn("No data received or data format invalid.");
-        }
+        
+             
+              
+   
       } catch (error) {
-        console.error("Error fetching batch record:", error);
+        //console.error("Error fetching batch record:", error);
         alert("An error occurred while fetching the batch record.");
       }
     };
@@ -248,7 +253,7 @@ function BatchRecord() {
       const match = cleaned.match(/^[A-Za-z0-9-]+/);
       return match ? match[0] : cleaned;
     });
-    console.log("Cleaned Batch Data:", cleanBatchData);
+    //console.log("Cleaned Batch Data:", cleanBatchData);
   
     // const batchHandler = (event) => {
     //   setSelectedBatch(event.target.value);
@@ -267,7 +272,7 @@ function BatchRecord() {
     useEffect(() => {
       console.log("Current line:", newLine);
       console.log("Current process:", newProces);
-      console.log("Current machine:", newMachine);
+      console.log("Current machine:", dbMacchinem);
       console.log("Selected batch:", selectedBatch);
     }, [newLine, newProces, newMachine, selectedBatch]);
 
@@ -326,14 +331,35 @@ function BatchRecord() {
   };
   
   const handleNextPage = () => {
-    setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(mainData.length / rowsPerPage)));
+    setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(allDataEBR.length / rowsPerPage)));
   };
+
+  const renderTableHeader= () => {
+    // Pastikan visibleData tidak kosong
+    if (allDataEBR.length > 0) {
+      // Ambil semua kunci dari objek pertama dalam visibleData
+      const dataKeys = Object.keys(allDataEBR[0]);
+  
+      return (
+        <thead>
+          <tr>
+            {dataKeys.map((dataKey, index) => (
+              <th className="text-center" key={index}>
+                {dataKey}
+              </th>
+            ))}
+          </tr>
+        </thead>
+      );
+    }
+    return null; // Jika visibleData kosong, kembalikan null
+  }
 
   const renderData = () => {
     const startIndex = (currentPage - 1) * rowsPerPage;
-    const visibleData = mainData.slice(startIndex, startIndex + rowsPerPage);
+    const visibleData = allDataEBR.slice(startIndex, startIndex + rowsPerPage);
 
-    if (mainData.length === 0) {
+    if (allDataEBR.length == 0) {
       return (
         <Tr>
           <Td colSpan={12} className="text-center text-text">
@@ -341,16 +367,25 @@ function BatchRecord() {
           </Td>
         </Tr>
       );
+    }else{
+      return visibleData.map((row, index) => {
+        // Ambil semua kunci dari objek row
+        const dataKeys = Object.keys(row);
+      
+        return (
+          <Tr key={index}>
+            {dataKeys.map((dataKey, dataIndex) => (
+              <Td className="text-center" key={dataIndex}>
+                {row[dataKey]}
+              </Td>
+            ))}
+          </Tr>
+        );
+      });
+      
     }
 
-    return visibleData.map((row, index) => (
-      <Tr key={index}>
-      {/* <Td className="text-center">{startIndex + index + 1}</Td> */}
-      <Td className="text-center">{row.data_index}</Td>
-      <Td className="text-center">{row.time}</Td>
-      <Td className="text-center">{row.data_format_0}</Td>
-    </Tr>
-    ));
+  
   };
 
   useEffect(() => {
@@ -568,8 +603,8 @@ function BatchRecord() {
               className="w-40 mt-8 no-print"
               colorScheme="blue"
               type="submit"
-              onSubmit={handleSubmit}
-              // onClick={() => submitHendeler()}
+              //onSubmit={handleSubmit}
+               onClick={() => handleSubmit()}
             >
               Submit
             </Button>
@@ -601,19 +636,7 @@ function BatchRecord() {
             <TableCaption sx={{
                 color: tulisanColor,
                 }}>Batch Record</TableCaption>
-            <Thead>
-              <Tr>
-                <Th sx={{
-                color: tulisanColor,
-                }}>No</Th>
-                <Th sx={{
-                color: tulisanColor,
-                }}>Batch-ID</Th>
-                <Th sx={{
-                color: tulisanColor,
-                }}>Date</Th>
-              </Tr>
-            </Thead>
+            {renderTableHeader()}
             <Tbody>{renderData()}</Tbody>
           </Table>
         </TableContainer>
