@@ -31,6 +31,9 @@ routers.post("/thickness", databaseControllers.fetchDataTickness);
 routers.post("/diameter", databaseControllers.fetchDataDiameter);
 
 routers.get("/oee", databaseControllers.fetchOee);
+routers.get("/vibrate", databaseControllers.fetchVibrate);
+routers.get("/vibrateChart", databaseControllers.vibrateChart);
+
 routers.get("/variableoee", databaseControllers.fetchVariableOee);
 
 routers.get("/emsN14", databaseControllers.fetchEMSn14);
@@ -109,6 +112,7 @@ routers.get("/ChillerData6", databaseControllers.ChillerData6);
 routers.get("/ChillerData7", databaseControllers.ChillerData7);
 routers.get("/ChillerData8", databaseControllers.ChillerData8);
 routers.get("/ChillerData9", databaseControllers.ChillerData9);
+routers.get("/trialChiller", databaseControllers.trialChiller);
 
 routers.get("/BuildingRNDSuhu", databaseControllers.BuildingRNDSuhu);
 routers.get("/BuildingRNDRH", databaseControllers.BuildingRNDRH);
@@ -123,7 +127,29 @@ routers.get("/BuildingWH1RH", databaseControllers.BuildingWH1RH);
 routers.get("/BuildingWH1All", databaseControllers.BuildingWH1All);
 
 routers.get("/AlarmList", databaseControllers.AlarmList);
+routers.get("/138", databaseControllers.fetch138);
 
 //=====================EBR==========================================================
 routers.get("/PmaGetData", databaseControllers.GetDataEBR_PMA);
 module.exports = routers;
+
+//==============INSTRUMENT IPC========================================INSTRUMENT IPC==========================================
+routers.get("/getMoistureData", databaseControllers.getMoistureData);
+routers.get("/getMoistureGraph", databaseControllers.getMoistureGraph);
+routers.get("/getSartoriusData", databaseControllers.getSartoriusData);
+routers.get("/getSartoriusGraph", databaseControllers.getSartoriusGraph);
+routers.get("/getMettlerData", databaseControllers.getMettlerData);
+
+//==============INSTRUMENT HARDNESS 141 ========================================INSTRUMENT HARDNESS 141 ==========================================
+routers.get("/getHardnessData", databaseControllers.getHardnessData);
+routers.get("/getHardnessGraph", databaseControllers.getHardnessGraph);
+routers.get("/getThicknessGraph", databaseControllers.getThicknessGraph);
+routers.get("/getDiameterGraph", databaseControllers.getDiameterGraph);
+
+//==============POWER METER MEZANINE ========================================POWER METER MEZANINE ==========================================
+routers.get("/fetchPower", databaseControllers.fetchPower);
+routers.get("/PowerMeterGraph", databaseControllers.PowerMeterGraph);
+
+//==============BATCH RECORD ========================================BATCH RECORD ==========================================
+routers.get("/BatchRecord1", databaseControllers.BatchRecord1);
+routers.get("/BatchRecord3", databaseControllers.BatchRecord3);
