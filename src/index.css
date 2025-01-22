@@ -20,6 +20,9 @@
     --color-acttext: 254, 226, 226;
     --color-hvrr: 164, 46, 255;
 
+    --color-cobabg: 255, 255, 255;
+    --color-coba: 255, 255, 255;
+
     background: rgba(var(--background));
   }
 
@@ -39,6 +42,9 @@
     --color-ctatext: 255, 255, 255;
     --color-acttext:  255, 255, 255;
     --color-hvrr: 0, 128, 0;
+
+    --color-cobabg: 41, 41, 41;
+    --color-coba: 54, 54, 54;
 
     background: rgba(var(--background));
   }

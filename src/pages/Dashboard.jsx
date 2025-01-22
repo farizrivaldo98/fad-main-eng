@@ -16,6 +16,7 @@ function Dashboard() {
     masterboxL3_1: [0],
     masterboxL3_2: [0],
     masterboxL2_2: [0],
+    masterboxL1: [0],
   });
   const [activeCard, setActiveCard] = useState(null); // Menyimpan card yang aktif
   const [loading, setLoading] = useState(false); // Mengontrol spinner
@@ -121,11 +122,13 @@ function Dashboard() {
   
   return (
     <div>
+      <>
       <Header />
+      </>
       
-      <div className="min-h-screen bg-gradient-to-b from-[#040724] via-[#0f1a8a] to-[#040726] mx-auto max-w-screen-2xl p-4 md:p-6 2xl:p-10 relative">
+      <div className="min-h-screen bg-cobabg mx-auto p-4 md:p-6 2xl:p-10 relative">
         {/* Section Title */}
-        <div className="text-white text-4xl font-sans font-bold mb-8 text-center">
+        <div className="text-text text-4xl font-sans font-bold mb-8 text-center">
           KALBE CONSUMER HEALTH OVERVIEW
         </div>
         <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row-reverse justify-between">
@@ -147,7 +150,7 @@ function Dashboard() {
 
         {/* Main Wrapper */}
         <section className="grid md:grid-cols-2 xl:grid-cols-4 gap-6 mt-3">
-          <div className={`flex items-center p-8 bg-white shadow rounded-lg dark:border-strokedark dark:bg-boxdark cursor-pointer ${
+          <div className={`flex items-center p-8 bg-coba shadow-buatcard rounded-lg dark:border-strokedark cursor-pointer ${
             activeCard === "Water Consumption" ? "ring-4 ring-blue-500" : ""
           }`}
           onClick={() => setActiveCard("NVMDP")}>
@@ -197,23 +200,27 @@ function Dashboard() {
             </div>
             <div>
               <h1 className="text-2xl text-black dark:text-white font-bold font-DMSans text-center">Output Master Box</h1>
-              <div className="grid grid-cols-3 text-center border-b border-gray-300 text-text py-1">
+              <div className="grid grid-cols-4 text-center border-b border-gray-300 text-text py-1">
                 <div className="font-bold text-text">ID</div>
+                <div className="font-bold text-text">Line 1</div>
                 <div className="font-bold text-text">Line 2</div>
                 <div className="font-bold text-text">Line 3</div>
               </div>
-              <div className="grid grid-cols-3 text-center pt-2">
+              <div className="grid grid-cols-4 text-center pt-2">
                 <div className="text-text font-semibold">A</div>
+                <div className="text-text">{masterboxData?.masterboxL1?.[0] ?? "N/A"}</div>
                 <div className="text-text">N/A</div>
                 <div className="text-text">{masterboxData?.masterboxL3_1?.[0] ?? "N/A"}</div>
               </div>
-              <div className="grid grid-cols-3 text-center">
+              <div className="grid grid-cols-4 text-center">
                 <div className="text-text font-semibold">B</div>
+                <div className="text-text">N/A</div>
                 <div className="text-text">{masterboxData?.masterboxL2_2?.[0] ?? "N/A"}</div>
                 <div className="text-text">{masterboxData?.masterboxL3_2?.[0] ?? "N/A"}</div>
               </div>
-              <div className="grid grid-cols-3 text-center">
+              <div className="grid grid-cols-4 text-center">
                 <div className="text-text font-semibold">C</div>
+                <div className="text-text">N/A</div>
                 <div className="text-text">N/A</div>
                 <div className="text-text">N/A</div>
               </div>

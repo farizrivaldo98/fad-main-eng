@@ -213,7 +213,7 @@ const NVMDP = () => {
       <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex items-center gap-4">
           <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
-            <AcUnitIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
+            <AcUnitIcon sx={{ fontSize: 32 }} className="overflow-hidden m-1 z-10 "/>
           </div>
           <h1 className="text-text text-2xl font-semibold font-DMSans">Chiller</h1>
         </div>
@@ -242,7 +242,7 @@ const NVMDP = () => {
       <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex items-center gap-4">
           <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
-            <FireHydrantAltIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
+            <FireHydrantAltIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
           </div>
           <h1 className="text-text text-2xl font-semibold font-DMSans">Hydrant</h1>
         </div>
@@ -274,7 +274,7 @@ const NVMDP = () => {
       <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex items-center gap-4">
           <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
-            <ConstructionIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
+            <ConstructionIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
           </div>
           <h1 className="text-text text-2xl font-semibold font-DMSans">Utility</h1>
         </div>
@@ -303,7 +303,7 @@ const NVMDP = () => {
       <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex items-center gap-4">
           <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
-            <FaLandmark sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
+            <FaLandmark sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
           </div>
           <h1 className="text-text text-2xl font-semibold font-DMSans">SDP 1 Production</h1>
         </div>
@@ -332,7 +332,7 @@ const NVMDP = () => {
       <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
         <div className="flex items-center gap-4">
           <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
-            <FaLandmark sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
+            <FaLandmark sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
           </div>
           <h1 className="text-text text-2xl font-semibold font-DMSans">SDP 2 Production</h1>
         </div>
@@ -362,7 +362,7 @@ const NVMDP = () => {
         <div className="text-center mt-8 p-2 dark:border-strokedark dark:bg-boxdark shadow rounded-lg relative">
             <h1 className="text-center text-text text-4xl antialiased hover:subpixel-antialiased mb-2">Grafana Chart</h1>
             <iframe
-                src="https://snapshots.raintank.io/dashboard/snapshot/jrOsrw3oOzY8dUZ4nebvAvriZRtoNl7j?orgId=0&from=now-30d&to=now"
+                src="https://snapshots.raintank.io/dashboard/snapshot/4UecdbD5fn2YnOTXeU2EmR2WcrXRxVLY?orgId=0&kiosk&viewPanel=60"
                 // width="540"
                 // height="480"
                 style={{

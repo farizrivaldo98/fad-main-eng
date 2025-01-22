@@ -20,9 +20,8 @@ import {
 import axios from "axios";
 import Header from "../components/header";
 import { useColorMode, useColorModeValue } from "@chakra-ui/react";
-import BatchRecordIsi from "./BatchRecordIsi";
 
-function BatchRecord() {
+const BatchRecordIsi = () => {
   // States for fetching data
   const [fetchLineData, setFetchLineData] = useState([]);
   const [fetchProcesData, setFetchProcesData] = useState([]);
@@ -434,17 +433,214 @@ function BatchRecord() {
   // }, []);
 
   return (
-    <div className="overflow-x-hidden">
-      <Header />
-      <div>
-        <h1 className="text-center text-text text-4xl antialiased hover:subpixel-antialiased p-8">
-          BATCH RECORD
-        </h1>
-      </div>
-      <BatchRecordIsi />
-      
-    </div>
-  );
-}
+    <>
+      <div className="flex flex-wrap justify-center items-center gap-6">
+              <div className="w-full sm:w-1/3 md:w-auto">
+                <div>
+                  <label
+                    htmlFor="line"
+                    className="block text-sm font-medium leading-6 text-text"
+                  >
+                    Line Area
+                  </label>
+                  <div className="mt-2">
+                    <Select placeholder="All Line" id="line" onChange={lineHandler}
+                      sx={{
+                        border: "1px solid",
+                        borderColor: borderColor,
+                        borderRadius: "0.395rem",
+                        background: "var(--color-background)", // background color from Tailwind config
+              
+                        _hover: {
+                          borderColor: hoverBorderColor,
+                        },
+                      }}>
+                      {renderLine()}
+                    </Select>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full sm:w-1/3 md:w-auto">
+                <div>
+                  <label
+                    htmlFor="proces"
+                    className="block text-sm font-medium leading-6 text-text"
+                  >
+                    Process
+                  </label>
+                  <div className="mt-2">
+                    <Select placeholder="All Process" onChange={procesHandler}
+                      sx={{
+                        borderRadius: "0.395rem",
+                      }}>
+                      {renderProces()}
+                    </Select>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full sm:w-1/3 md:w-auto">
+                <div>
+                  <label
+                    htmlFor="machine"
+                    className="block text-sm font-medium leading-6 text-text"
+                  >
+                    Machine
+                  </label>
+                  <div className="mt-2">
+                    <Select placeholder="All Machine" onChange={machineHandler}>
+                      {renderMachine()}
+                    </Select>
+                  </div>
+                </div> 
+              </div>
+              <div className="w-full sm:w-1/2 md:w-auto">
+                <div>
+                  <label
+                    htmlFor="line"
+                    className="block text-sm font-medium leading-6 text-text"
+                  >
+                    Start Date
+                  </label>
+                  <Input
+                    //onChange={dateStart}
+                    placeholder="Select Date and Time"
+                    size="md"
+                    type="date"
+                    value={startDate}
+                    onChange={startDateHandler}
+                    // onChange={(e) => setStartDate(e.target.value)}
+                    css={{
+                      "&::-webkit-calendar-picker-indicator": {
+                        color: isDarkMode ? "white" : "black",
+                        filter: isDarkMode ? "invert(1)" : "none",
+                      },
+                    }}
+                    sx={{
+                      border: "1px solid",
+                      borderColor: borderColor,
+                      borderRadius: "0.395rem",
+                      background: "var(--color-background)", // background color from Tailwind config
+            
+                      _hover: {
+                        borderColor: hoverBorderColor,
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+              <div className="w-full sm:w-1/2 md:w-auto">
+                <div>
+                  <label
+                    htmlFor="line"
+                    className="block text-sm font-medium leading-6 text-text"
+                  >
+                    Finish Date
+                  </label>
+                  <Input
+                    //onChange={dateFinish}
+                    placeholder="Select Date and Time"
+                    size="md"
+                    type="date"
+                    value={finishDate}
+                    onChange={finishDateHandler}
+                    // onChange={(e) => setFinishDate(e.target.value)}
+                    css={{
+                      "&::-webkit-calendar-picker-indicator": {
+                        color: isDarkMode ? "white" : "black",
+                        filter: isDarkMode ? "invert(1)" : "none",
+                      },
+                    }}
+                    sx={{
+                      border: "1px solid",
+                      borderColor: borderColor,
+                      borderRadius: "0.395rem",
+                      background: "var(--color-background)", // background color from Tailwind config
+            
+                      _hover: {
+                        borderColor: hoverBorderColor,
+                      },
+                    }}
+                  />
+                </div>        
+              </div>
+              <div className="w-full sm:w-1/2 md:w-auto">
+              <div>
+                  <label
+                    htmlFor="line"
+                    className="block text-sm font-medium leading-6 text-text"
+                  >
+                    Search Batch
+                  </label>
+                  <div className="search">
+                    <Select
+                      placeholder="Select Batch"
+                      value={selectedBatch}
+                      onChange={(e) => setSelectedBatch(e.target.value)}
+                    >
+                    {/* <option value="">Select Batch</option> */}
+                    {cleanBatchData.length > 0 ? (
+                      cleanBatchData.map((batch, index) => (
+                        <option key={index} value={batch}>
+                          {batch}
+                        </option>
+                      ))
+                    ) : (
+                      <option value="" disabled>
+                        No Batch Data Available
+                      </option>
+                    )}
+                    </Select>
+                  </div>
+                </div>
+              </div>
+              <div className="w-full sm:w-1/2 md:w-auto">
+                <div className="no-print">
+                  <Button
+                    className="w-40 mt-8 no-print"
+                    colorScheme="blue"
+                    type="submit"
+                    //onSubmit={handleSubmit}
+                     onClick={() => handleSubmit()}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </div>
+            </div>
+            <div className="flex justify-center mx-2">
+            <TableContainer className="bg-card rounded-md mt-4 mx-6" sx={{ overflowX: "auto", maxWidth: "90%" }}>
+                <Table key={colorMode} variant="simple" sx={{ minWidth: "1200px"}} >
+                  <TableCaption sx={{
+                      color: tulisanColor,
+                      }}>Batch Record</TableCaption>
+                  {renderTableHeader()}
+                  <Tbody>{renderData()}</Tbody>
+                </Table>
+              </TableContainer>
+            </div>
+            {/* Pagination Controls */}
+            <div className="flex justify-center items-center mt-4 gap-4">
+              <Button
+                onClick={handlePrevPage}
+                isDisabled={currentPage === 1}
+                colorScheme="blue"
+              >
+                Previous
+              </Button>
+              <span className="text-text">
+                Page {currentPage} of {Math.ceil(mainData.length / rowsPerPage)}
+              </span>
+              <Button
+                onClick={handleNextPage}
+                isDisabled={currentPage === Math.ceil(mainData.length / rowsPerPage)}
+                colorScheme="blue"
+              >
+                Next
+              </Button>
+            </div>
+            
+          </>
+        );
+      }
 
-export default BatchRecord;
+export default BatchRecordIsi
