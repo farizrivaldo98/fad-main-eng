@@ -441,9 +441,7 @@ function BatchRecord() {
         </h1>
       </div>
 
-      <div className="flex flex-row justify-center items-center">
-        <div className="main flex flex-row gap-x-6">
-
+      <div className="flex flex-row md:flex-col justify-center items-center gap-6">
           <div>
             <label
               htmlFor="line"
@@ -609,7 +607,6 @@ function BatchRecord() {
               Submit
             </Button>
           </div>
-        </div>
       </div>
       <br />
       <Stack className="flex flex-row justify-center gap-2"
@@ -630,9 +627,8 @@ function BatchRecord() {
           </Select>
         </div>
       </Stack>
-      <Box className="scroll-box whitespace-nowrap mt-8 bg-card rounded-md mx-2">
-        <TableContainer>
-          <Table key={colorMode} variant="simple" className="scroll-table" >
+        <TableContainer className="bg-card rounded-md" sx={{ overflowX: "auto", maxWidth: "92%" }}>
+          <Table key={colorMode} variant="simple" className="scroll-table" sx={{ minWidth: "1200px"}} >
             <TableCaption sx={{
                 color: tulisanColor,
                 }}>Batch Record</TableCaption>
@@ -640,7 +636,6 @@ function BatchRecord() {
             <Tbody>{renderData()}</Tbody>
           </Table>
         </TableContainer>
-      </Box>
       {/* Pagination Controls */}
       <div className="flex justify-center items-center mt-4 gap-4">
         <Button
