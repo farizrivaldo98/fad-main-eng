@@ -52,6 +52,16 @@ const BatchRecordIsi = () => {
     document.documentElement.getAttribute("data-theme") === "dark"
   );
 
+  const formatTimestamp = (uniqueTimestamp) => {
+    const [seconds] = uniqueTimestamp.toString().split(".");
+    const date = new Date(seconds * 1000); // Convert seconds to milliseconds
+    const formattedDate = date.toLocaleString("en-US", {
+      timeZone: "Asia/Jakarta",
+    });
+    return `${formattedDate}`; // Return the formatted date without fractional seconds
+    // return `${formattedDate}.${fractional || "00"}`; // Uncomment this line if you want to include fractional seconds
+  };
+
     // Fetch Line data
     const fetchLine = async () => {
       let response = await axios.get("http://10.126.15.137:8002/part/lineData");
@@ -255,16 +265,6 @@ const BatchRecordIsi = () => {
     });
     //console.log("Cleaned Batch Data:", cleanBatchData);
   
-    // const batchHandler = (event) => {
-    //   setSelectedBatch(event.target.value);
-    // };
-  
-    // const submitHandler = async (event) => {
-    //   event.preventDefault();
-    //   await fetchBatch(newLine, startDate, finishDate); // Fetch batch data
-    //   getData(); // Fetch the main table data 
-    // };
-  
     useEffect(() => {
       fetchLine(); // Fetch line data on component mount
     }, []);
@@ -316,7 +316,6 @@ const BatchRecordIsi = () => {
     //   fetchBatch(machine, start, finish, line, setMainData);
     // };
     
-  
     // const renderBatch = () => {
     //   return fetchBatchData.map((batch) => (
     //     <option key={batch.id} value={batch.batch}>
@@ -344,7 +343,7 @@ const BatchRecordIsi = () => {
         <thead>
           <tr>
             {dataKeys.map((dataKey, index) => (
-              <th className="text-center" key={index}>
+              <th className="text-center px-4 py-2 whitespace-normal" key={index}>
                 {dataKey}
               </th>
             ))}
@@ -353,7 +352,22 @@ const BatchRecordIsi = () => {
       );
     }
     return null; // Jika visibleData kosong, kembalikan null
-  }
+  };
+
+  const cleanData = (dataKey, value) => {
+    if (dataKey === "BATCH" || dataKey === "PROCESS") {
+      return value.replace(/[^a-zA-Z0-9\s-]/g, '');
+    }
+    if (dataKey === "impeller_rpm" || dataKey === "impeller_ampere") {
+      // Format the value to 2 decimal places
+      return parseFloat(value).toFixed(2);
+    }
+    if (dataKey === "time@timestamp") {
+      // Format the timestamp to a readable format
+      return formatTimestamp(value);
+    }
+    return value;
+  };
 
   const renderData = () => {
     const startIndex = (currentPage - 1) * rowsPerPage;
@@ -375,8 +389,8 @@ const BatchRecordIsi = () => {
         return (
           <Tr key={index}>
             {dataKeys.map((dataKey, dataIndex) => (
-              <Td className="text-center" key={dataIndex}>
-                {row[dataKey]}
+              <Td className="text-center bg-cobabg" key={dataIndex}>
+                {cleanData(dataKey, row[dataKey])}
               </Td>
             ))}
           </Tr>
@@ -606,6 +620,19 @@ const BatchRecordIsi = () => {
                   </Button>
                 </div>
               </div>
+            </div>
+            <div className="mt-4 flex justify-center">
+              <Select
+                value={rowsPerPage}
+                onChange={(e) => setRowsPerPage(Number(e.target.value))}
+                width="80px">
+                <option value={5}>5</option>
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={40}>40</option>
+                <option value={60}>60</option>
+                <option value={100}>100</option>
+              </Select>
             </div>
             <div className="flex justify-center mx-2">
             <TableContainer className="bg-card rounded-md mt-4 mx-6" sx={{ overflowX: "auto", maxWidth: "90%" }}>
