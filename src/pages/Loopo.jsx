@@ -265,7 +265,7 @@ export default function Loopo() {
           <br />
           <Button
             className="m1-4"
-            colorScheme="gray"
+            colorScheme="blue"
             onClick={() => fetchLoopo()}
           >
             Submit
