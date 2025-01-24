@@ -77,9 +77,9 @@ const PDAM = () => {
   return (
     <>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-2 transition delay-300">
-            <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-buatcard bg-coba">
                 <div className="flex items-center gap-4">
-                    <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                    <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
                         <GrFanOption sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Boiler</h1>
@@ -110,9 +110,9 @@ const PDAM = () => {
                     </span>
                 </div>
             </div>
-            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
                 <div className="flex items-center gap-4">
-                    <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                    <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
                         <GiBaseDome sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Domestik</h1>
@@ -139,9 +139,9 @@ const PDAM = () => {
                     </span>
                 </div>
             </div>
-            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
                 <div className="flex items-center gap-4">
-                    <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
+                    <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
                         <PiPlantFill sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Inlet Pre-Treatment</h1>
@@ -171,9 +171,9 @@ const PDAM = () => {
         </div>
         {/* -----------------------------------------------------------   &&&  -------------------------------------------------------------------- */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-2 transition delay-300">
-            <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-buatcard bg-coba">
                 <div className="flex items-center gap-4">
-                    <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+                    <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
                         <IoLogoElectron sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Reject Osmotron</h1>
@@ -204,16 +204,18 @@ const PDAM = () => {
                     </span>
                 </div>
             </div>
-            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
                 <div className="flex items-center gap-4">
-                    <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
+                    <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
                         <YardIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Taman Pos Jaga</h1>
                 </div>
                 <div className="mt-4 flex items-end justify-between">
                     <div>
-                        <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{filteredTamanPos ?? "N/A"}</h4>
+                        <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{filteredTamanPos !== null && filteredTamanPos !== undefined 
+                            ? parseFloat(filteredTamanPos).toFixed(2) 
+                            : "N/A"}</h4>
                         <span className="text-[16px] font-medium font-poppins text-black dark:text-white">Total</span>
                     </div>
                     <span className="flex items-center gap-1 text-sm font-medium text-meta-3">2.59%

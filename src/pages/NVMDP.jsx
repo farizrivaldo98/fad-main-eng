@@ -93,9 +93,9 @@ const NVMDP = () => {
   return (
     <>
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-2 transition delay-200">
-      <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-buatcard bg-coba">
         <div className="flex items-center gap-4">
-          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
             <svg
               className="fill-primaryy dark:fill-secondary"
               width="22"
@@ -160,9 +160,9 @@ const NVMDP = () => {
         </div>
       </div>
 
-      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
         <div className="flex items-center gap-4">
-          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4">
+          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
             <svg
               className="fill-primary dark:fill-white"
               width="20"
@@ -210,9 +210,9 @@ const NVMDP = () => {
         </div>
       </div>
 
-      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
         <div className="flex items-center gap-4">
-          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
+          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
             <AcUnitIcon sx={{ fontSize: 32 }} className="overflow-hidden m-1 z-10 "/>
           </div>
           <h1 className="text-text text-2xl font-semibold font-DMSans">Chiller</h1>
@@ -239,9 +239,9 @@ const NVMDP = () => {
           </span>
         </div>
       </div>
-      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
         <div className="flex items-center gap-4">
-          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
+          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
             <FireHydrantAltIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
           </div>
           <h1 className="text-text text-2xl font-semibold font-DMSans">Hydrant</h1>
@@ -271,9 +271,9 @@ const NVMDP = () => {
     </div>
 {/* -------------------------------------------------------------------------------------------------------------------------------------------- */}
     <div className="grid grid-cols-1 justify-center gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-3 2xl:gap-2">
-      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
         <div className="flex items-center gap-4">
-          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
+          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
             <ConstructionIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
           </div>
           <h1 className="text-text text-2xl font-semibold font-DMSans">Utility</h1>
@@ -300,9 +300,9 @@ const NVMDP = () => {
           </span>
         </div>
       </div>
-      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
         <div className="flex items-center gap-4">
-          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
+          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
             <FaLandmark sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
           </div>
           <h1 className="text-text text-2xl font-semibold font-DMSans">SDP 1 Production</h1>
@@ -329,9 +329,9 @@ const NVMDP = () => {
           </span>
         </div>
       </div>
-      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-default dark:border-strokedark dark:bg-boxdark">
+      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
         <div className="flex items-center gap-4">
-          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-meta-2 dark:bg-meta-4 relative">
+          <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
             <FaLandmark sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
           </div>
           <h1 className="text-text text-2xl font-semibold font-DMSans">SDP 2 Production</h1>
@@ -359,7 +359,7 @@ const NVMDP = () => {
         </div>
       </div>
     </div>
-        <div className="text-center mt-8 p-2 dark:border-strokedark dark:bg-boxdark shadow rounded-lg relative">
+        <div className="text-center mt-8 p-2 shadow-buatcard bg-coba rounded-md relative">
             <h1 className="text-center text-text text-4xl antialiased hover:subpixel-antialiased mb-2">Grafana Chart</h1>
             <iframe
                 src="https://snapshots.raintank.io/dashboard/snapshot/4UecdbD5fn2YnOTXeU2EmR2WcrXRxVLY?orgId=0&kiosk&viewPanel=60"

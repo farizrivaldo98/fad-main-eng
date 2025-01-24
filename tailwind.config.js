@@ -4,11 +4,15 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        DMSans: ['DM Sans', 'serif'],
+      },
       colors: {
         background: "rgba(var(--color-background))",
         border: "rgba(var(--color-border))",
         border2: "rgba(var(--color-border2))",
         card: "rgba(var(--color-card))",
+        lingkaran: "rgba(var(--color-lingkaran))",
 
         text: "rgba(var(--color-text))",
         text2: "rgba(var(--color-text2))",      

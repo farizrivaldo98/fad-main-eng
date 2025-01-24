@@ -145,7 +145,7 @@ export default function BuildingRnD() {
     if (AllDataWH1.length === 0) {
       return (
         <Tr>
-          <Td colSpan={3} className="text-center text-text">
+          <Td colSpan={4} className="text-center text-text">
             No data available
           </Td>
         </Tr>
@@ -345,7 +345,7 @@ export default function BuildingRnD() {
       ) : error ? (
         <div className="text-red-500">No available data</div>
       ) : (
-        <CanvasJSChart className="" options={options} />
+        <CanvasJSChart options={options} />
       )}
       </div>
       <br />
