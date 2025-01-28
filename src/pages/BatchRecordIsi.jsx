@@ -634,7 +634,7 @@ const BatchRecordIsi = () => {
                 <option value={100}>100</option>
               </Select>
             </div>
-            <div className="flex justify-center mx-2">
+            <div className="flex justify-center">
             <TableContainer className="bg-card rounded-md mt-4 mx-6" sx={{ overflowX: "auto", maxWidth: "90%" }}>
                 <Table key={colorMode} variant="simple" sx={{ minWidth: "1200px"}} >
                   <TableCaption sx={{

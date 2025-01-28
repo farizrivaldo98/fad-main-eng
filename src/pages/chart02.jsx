@@ -1,4 +1,3 @@
-import { wrap } from 'framer-motion'
 import React from 'react'
 
 const chart02 = () => {
