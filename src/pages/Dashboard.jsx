@@ -209,7 +209,10 @@ function Dashboard() {
               <div className="grid grid-cols-4 text-center pt-2">
                 <div className="text-text font-semibold">A</div>
                 <div className="text-text">{masterboxData?.masterboxL1?.[0] ?? "N/A"}</div>
-                <div className="text-text">N/A</div>
+                <div role="status" class="max-w-sm animate-pulse">
+                  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                  <span class="sr-only">Loading...</span>
+                </div>
                 <div className="text-text">{masterboxData?.masterboxL3_1?.[0] ?? "N/A"}</div>
               </div>
               <div className="grid grid-cols-4 text-center">
@@ -221,8 +224,14 @@ function Dashboard() {
               <div className="grid grid-cols-4 text-center">
                 <div className="text-text font-semibold">C</div>
                 <div className="text-text">N/A</div>
-                <div className="text-text">N/A</div>
-                <div className="text-text">N/A</div>
+                <div role="status" class="max-w-sm animate-pulse">
+                  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-600"></div>
+                  <span class="sr-only">Loading...</span>
+                </div>
+                <div role="status" class="max-w-sm animate-pulse">
+                  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-600"></div>
+                  <span class="sr-only">Loading...</span>
+                </div>
               </div>
             </div>
           </div>
