@@ -16,7 +16,7 @@ function Dashboard() {
     masterboxL3_1: [0],
     masterboxL3_2: [0],
     masterboxL2_2: [0],
-    masterboxL1: [0],
+    MasterBoxL1: [0],
   });
   const [activeCard, setActiveCard] = useState(null); // Menyimpan card yang aktif
   const [loading, setLoading] = useState(false); // Mengontrol spinner
@@ -208,7 +208,7 @@ function Dashboard() {
               </div>
               <div className="grid grid-cols-4 text-center pt-2">
                 <div className="text-text font-semibold">A</div>
-                <div className="text-text">{masterboxData?.masterboxL1?.[0] ?? "N/A"}</div>
+                <div className="text-text">{masterboxData?.MasterBoxL1?.[0] ?? "N/A"}</div>
                 {/* <div role="status" class="max-w-sm animate-pulse">
                   <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
                   <span class="sr-only">Loading...</span>
