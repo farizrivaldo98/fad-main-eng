@@ -24,6 +24,24 @@ const NVMDP = () => {
     //   masterboxL3_2: [0],
     //   masterboxL2_2: [0],
     // });
+
+    const [isDarkMode, setIsDarkMode] = useState(
+        document.documentElement.getAttribute("data-theme") === "dark"
+    );
+
+    const grafanaLVMDP = isDarkMode 
+    ? "https://snapshots.raintank.io/dashboard/snapshot/zv7ZGhEnseNtVZ375bOCxvwx78LjhACk?orgId=0&viewPanel=36&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/zv7ZGhEnseNtVZ375bOCxvwx78LjhACk?orgId=0&viewPanel=36&kiosk&theme=light";
+    const grafanaMVMDPMonth = isDarkMode 
+    ? "https://snapshots.raintank.io/dashboard/snapshot/ZxS3ytTObX2gw5CD0F57wdSDGSe5Y9I0?orgId=0&viewPanel=38&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/ZxS3ytTObX2gw5CD0F57wdSDGSe5Y9I0?orgId=0&viewPanel=38&kiosk&theme=light";
+    const grafanaMVMDPYear = isDarkMode 
+    ? "https://snapshots.raintank.io/dashboard/snapshot/nKXeg5CtNW9M1GfW8MrLSHJlKtifwHze?orgId=0&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/nKXeg5CtNW9M1GfW8MrLSHJlKtifwHze?orgId=0&kiosk&theme=light";
+    const grafanaChiller = isDarkMode 
+    ? "https://snapshots.raintank.io/dashboard/snapshot/jvvOuCZtXUfWUPxZ5UtgVvNct7MuORJa?orgId=0&viewPanel=39&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/jvvOuCZtXUfWUPxZ5UtgVvNct7MuORJa?orgId=0&viewPanel=39&kiosk&theme=light";
+
   
     useEffect(() => {
       const socket = new WebSocket("ws://10.126.15.137:8081");
@@ -90,6 +108,18 @@ const NVMDP = () => {
         socket.close(); // Tutup koneksi WebSocket
       };
     }, [messages]);
+
+      useEffect(() => {
+        const handleThemeChange = () => {
+          const currentTheme = document.documentElement.getAttribute('data-theme');
+          setIsDarkMode(currentTheme === 'dark');
+        };
+        // Observe attribute changes
+        const observer = new MutationObserver(handleThemeChange);
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    
+        return () => observer.disconnect();
+      }, []);
   
   return (
     <>
@@ -126,7 +156,7 @@ const NVMDP = () => {
           </div>
         </div>
         <div className="grid grid-cols-2">
-          <div className="py-2 px-4 text-center text-text border-r border-gray-300">
+          <div className="py-2 px-4 text-center text-text">
             {filteredValue?.Inverter_SP_1to6?.[0] ?? "N/A"}
           </div>
           <div className="py-2 px-4 text-center text-text">
@@ -216,12 +246,9 @@ const NVMDP = () => {
       {showPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
           <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
-            {/* <h2 className="text-xl font-bold text-text">Detail LVMDP</h2> */}
             <p className="text-text mt-2">Ini adalah pop-up dari card LVMDP.</p>
             <iframe
-              src="https://snapshots.raintank.io/dashboard/snapshot/4UecdbD5fn2YnOTXeU2EmR2WcrXRxVLY?orgId=0&kiosk&viewPanel=60"
-              // width="540"
-              // height="480"
+              src={grafanaLVMDP}
               style={{
                 border: 'none', // Removes border
                 position: 'relative',
@@ -240,7 +267,8 @@ const NVMDP = () => {
         </div>
       )}
 
-      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
+      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer"
+      onClick={() => setShowPopup(true)}>
         <div className="flex items-center gap-4">
           <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
             <AcUnitIcon sx={{ fontSize: 32 }} className="overflow-hidden m-1 z-10 "/>
@@ -269,6 +297,32 @@ const NVMDP = () => {
           </span>
         </div>
       </div>
+
+      {/* Pop-Up */}
+      {showPopup && (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
+        <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
+          <p className="text-text mt-2">Ini adalah pop-up dari card LVMDP.</p>
+          <iframe
+            src={grafanaChiller}
+            style={{
+              border: 'none', // Removes border
+              position: 'relative',
+              width: '100%', // Full width of parent div
+              aspectRatio: '16 / 5' // Adjust aspect ratio as needed
+            }}
+            title="Grafana Chart">
+          </iframe>
+          <button
+            onClick={() => setShowPopup(false)}
+            className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full"
+          >
+            X
+          </button>
+        </div>
+      </div>
+      )}
+      
       <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
         <div className="flex items-center gap-4">
           <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
@@ -389,22 +443,36 @@ const NVMDP = () => {
         </div>
       </div>
     </div>
-        <div className="text-center mt-8 p-2 shadow-buatcard bg-coba rounded-md relative">
-            <h1 className="text-center text-text text-4xl antialiased hover:subpixel-antialiased mb-2">Grafana Chart</h1>
-            <iframe
-                src="https://snapshots.raintank.io/dashboard/snapshot/4UecdbD5fn2YnOTXeU2EmR2WcrXRxVLY?orgId=0&kiosk&viewPanel=60"
-                // width="540"
-                // height="480"
-                style={{
-                    border: 'none', // Removes border
-                    position: 'relative',
-                    width: '100%', // Full width of parent div
-                    aspectRatio: '16 / 6' // Adjust aspect ratio as needed
-                }}
-                title="Grafana Chart">
-            </iframe>
-        </div>
-        </>
+    <div className="text-center mt-8 p-2 shadow-buatcard bg-coba rounded-md relative">
+        <h1 className="text-center text-text text-4xl antialiased hover:subpixel-antialiased mb-2">MVMDP Chart</h1>
+        <iframe
+          src={grafanaMVMDPMonth}
+          // width="540"
+          // height="480"
+          style={{
+            border: 'none', // Removes border
+            position: 'relative',
+            width: '100%', // Full width of parent div
+            aspectRatio: '16 / 6' // Adjust aspect ratio as needed
+          }}
+          title="Grafana Chart">
+        </iframe>
+        <br/>
+        <iframe
+          src={grafanaMVMDPYear}
+          // width="540"
+          // height="480"
+          style={{
+            border: 'none', // Removes border
+            position: 'relative',
+            width: '100%', // Full width of parent div
+            aspectRatio: '16 / 6', // Adjust aspect ratio to match the desired size
+            height: '840px', // Set a fixed height for the iframe
+          }}
+          title="Grafana Chart">
+        </iframe>
+    </div>
+    </>
   )
 }
 
