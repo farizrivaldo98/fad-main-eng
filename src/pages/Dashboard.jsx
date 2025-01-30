@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/header";
-import City from '../assets/3dcity.png';
-import { Box, Flex, Image, Text, VStack, Circle, Spinner } from "@chakra-ui/react";
+// import City from '../assets/3dcity.png';
+import { Spinner } from "@chakra-ui/react";
 import Chart01 from "./Chart01";
 import Chart02 from "./chart02";
 import NVMDP from "./NVMDP";
@@ -209,9 +209,19 @@ function Dashboard() {
               <div className="grid grid-cols-4 text-center pt-2">
                 <div className="text-text font-semibold">A</div>
                 <div className="text-text">{masterboxData?.masterboxL1?.[0] ?? "N/A"}</div>
-                <div role="status" class="max-w-sm animate-pulse">
+                {/* <div role="status" class="max-w-sm animate-pulse">
                   <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
                   <span class="sr-only">Loading...</span>
+                </div> */}
+                <div className="flex flex-row justify-center ">
+                  <Spinner
+                    thickness="2px"
+                    speed="1.5s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="sm"
+                    alignItems="center"
+                  />
                 </div>
                 <div className="text-text">{masterboxData?.masterboxL3_1?.[0] ?? "N/A"}</div>
               </div>
@@ -224,13 +234,25 @@ function Dashboard() {
               <div className="grid grid-cols-4 text-center">
                 <div className="text-text font-semibold">C</div>
                 <div className="text-text">N/A</div>
-                <div role="status" class="max-w-sm animate-pulse">
-                  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-600"></div>
-                  <span class="sr-only">Loading...</span>
+                <div className="flex flex-row justify-center ">
+                  <Spinner
+                    thickness="2px"
+                    speed="1.5s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="sm"
+                    alignItems="center"
+                  />
                 </div>
-                <div role="status" class="max-w-sm animate-pulse">
-                  <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-600"></div>
-                  <span class="sr-only">Loading...</span>
+                <div className="flex flex-row justify-center ">
+                  <Spinner
+                    thickness="2px"
+                    speed="1.5s"
+                    emptyColor="gray.200"
+                    color="blue.500"
+                    size="sm"
+                    alignItems="center"
+                  />
                 </div>
               </div>
             </div>
