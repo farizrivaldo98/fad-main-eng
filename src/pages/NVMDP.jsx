@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import FireHydrantAltIcon from '@mui/icons-material/FireHydrantAlt';
 import ConstructionIcon from '@mui/icons-material/Construction';
@@ -17,6 +16,8 @@ const NVMDP = () => {
     const [filteredUtil, setFilteredUtil] = useState(null); // Nilai spesifik yang ditampilkan
     const [filteredProd1, setFilteredProd1] = useState(null); // Nilai spesifik yang ditampilkan
     const [filteredProd2, setFilteredProd2] = useState(null); // Nilai spesifik yang ditampilkan
+
+    const [showPopup, setShowPopup] = useState(false); //bikin pop-up coba dulu
 
     // const [masterboxData, setMasterboxData] = useState({
     //   masterboxL3_1: [0],
@@ -97,7 +98,7 @@ const NVMDP = () => {
         <div className="flex items-center gap-4">
           <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
             <svg
-              className="fill-primaryy dark:fill-secondary"
+              className="fill-primary dark:fill-secondary"
               width="22"
               height="16"
               viewBox="0 0 22 16"
@@ -160,7 +161,8 @@ const NVMDP = () => {
         </div>
       </div>
 
-      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
+      <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer"
+      onClick={() => setShowPopup(true)}>
         <div className="flex items-center gap-4">
           <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
             <svg
@@ -209,6 +211,34 @@ const NVMDP = () => {
           </span>
         </div>
       </div>
+
+      {/* Pop-Up */}
+      {showPopup && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
+          <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
+            {/* <h2 className="text-xl font-bold text-text">Detail LVMDP</h2> */}
+            <p className="text-text mt-2">Ini adalah pop-up dari card LVMDP.</p>
+            <iframe
+              src="https://snapshots.raintank.io/dashboard/snapshot/4UecdbD5fn2YnOTXeU2EmR2WcrXRxVLY?orgId=0&kiosk&viewPanel=60"
+              // width="540"
+              // height="480"
+              style={{
+                border: 'none', // Removes border
+                position: 'relative',
+                width: '100%', // Full width of parent div
+                aspectRatio: '16 / 5' // Adjust aspect ratio as needed
+              }}
+              title="Grafana Chart">
+            </iframe>
+            <button
+              onClick={() => setShowPopup(false)}
+              className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      )}
 
       <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
         <div className="flex items-center gap-4">

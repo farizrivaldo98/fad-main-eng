@@ -80,7 +80,7 @@ const PDAM = () => {
             <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-buatcard bg-coba">
                 <div className="flex items-center gap-4">
                     <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
-                        <GrFanOption sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
+                        <GrFanOption size={31} className="flex-shrink-0 m-1 z-50 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Boiler</h1>
                 </div>
@@ -113,7 +113,7 @@ const PDAM = () => {
             <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
                 <div className="flex items-center gap-4">
                     <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
-                        <GiBaseDome sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
+                        <GiBaseDome size={31} className="flex-shrink-0 m-1 z-50 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Domestik</h1>
                 </div>
@@ -142,7 +142,7 @@ const PDAM = () => {
             <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
                 <div className="flex items-center gap-4">
                     <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
-                        <PiPlantFill sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
+                        <PiPlantFill size={32} className="flex-shrink-0 m-1 z-50 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Inlet Pre-Treatment</h1>
                 </div>
@@ -174,7 +174,7 @@ const PDAM = () => {
             <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-buatcard bg-coba">
                 <div className="flex items-center gap-4">
                     <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
-                        <IoLogoElectron sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
+                        <IoLogoElectron size={32}  className="flex-shrink-0 m-1 z-50 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Reject Osmotron</h1>
                 </div>

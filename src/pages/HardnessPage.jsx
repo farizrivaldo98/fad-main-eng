@@ -458,7 +458,7 @@ function HardnessPage() {
   //console.log(hardnessData);
 
   return (
-    <div>
+    <>
         <div>
           <h1 className="block text-center font-medium text-4xl antialiased hover:subpixel-antialiased; p-6 pb-3">
                 HARDNESS TESTER
@@ -524,9 +524,8 @@ function HardnessPage() {
           <div
             className="flex flex-row justify-center"
             direction="row"
-            spacing={5}
             align="center">
-            <div className="main flex flex-row gap-x-6">
+            <div className="main flex flex-col xl:flex-row gap-x-2 xl:gap-x-6">
               <div>
                 <label
                   htmlFor="line"
@@ -550,7 +549,7 @@ function HardnessPage() {
               <div>
                 <label
                   htmlFor="line"
-                  className="block text-sm font-medium leading-6 text-text">
+                  className="block text-sm font-medium leading-6 text-text ">
                   Finish Date
                 </label>
                 <Input
@@ -567,24 +566,22 @@ function HardnessPage() {
                   }}
                 />
               </div>
-            </div>
-            <div>
-              <br />
-              <Button
-                className="ml-4 mt-1"
-                colorScheme="blue"
-                onClick={() => handleSubmit()}
-              >
-                Submit
-              </Button>
+              <div className="xl:mt-8 sm:mt-2">
+                <Button
+                  colorScheme="blue"
+                  onClick={() => handleSubmit()}
+                >
+                  Submit
+                </Button>
+              </div>
             </div>
           </div>
           <br />
-          <div className="flex flex-row justify-center gap-6">
-            <Button className="ml-4" colorScheme="blue" onClick={() => handleShowAll()}>
+          <div className="flex flex-row justify-center gap-6 mt-3">
+            <Button colorScheme="blue" onClick={() => handleShowAll()}>
               Show All Data
             </Button>
-            <div className="mt-2">
+            <div>
               <Select
                 value={rowsPerPage}
                 onChange={(e) => setRowsPerPage(Number(e.target.value))}
@@ -597,16 +594,16 @@ function HardnessPage() {
                 <option value={100}>100</option>
               </Select>
             </div>
-            <Button className="ml-4" colorScheme="red" onClick={() => handleHideAll()}>
+            <Button colorScheme="red" onClick={() => handleHideAll()}>
               Hidden All Data
             </Button>
           </div>
           <br /> 
           {showAllData && (
-          <TableContainer  className="bg-card rounded-md mx-1" 
+          <TableContainer className="flex justify-center bg-card rounded-md mx-2" 
           sx={{ 
           overflowX: "auto", 
-          maxWidth: "100%", }}>
+          maxWidth: "94%", }}>
             <Table key={colorMode} variant="simple" sx={{ minWidth: "1200px" /* Adjust as needed */ }}>
               <TableCaption sx={{
               color: tulisanColor,
@@ -668,7 +665,7 @@ function HardnessPage() {
           <ToastContainer position="top-center" autoClose={3000} 
           hideProgressBar closeOnClick pauseOnHover draggable  />
       </div>
-    </div>
+    </>
   );
 }
 

@@ -78,8 +78,14 @@ const Moisture = () => {
         },
       }
     );
+    const processedData = response.data.map((row) => ({
+      ...row,
+      label: row.label.split("T")[0], // Extract YYYY-MM-DD
+    }));
       // Preprocess data to format created_
-      setMoistureGraph(response.data)
+      setMoistureGraph(processedData)
+      console.log(processedData);
+      
   };
 
   const handleSubmit = () => {
@@ -187,6 +193,7 @@ const Moisture = () => {
 
   // ========================================================================================================================================== //
   const moistureOptions = {
+    zoomEnabled: true,
     theme: isDarkMode ? "dark2" : "light2",
     axisY: {
       prefix: "",
@@ -207,11 +214,10 @@ const Moisture = () => {
       shared: true,
   },
   backgroundColor: isDarkMode ? "#171717" : "#ffffff",
-  title: { text: "Thickness", fontColor: isDarkMode ? "white" : "black" },
+  // title: { text: "Thickness", fontColor: isDarkMode ? "white" : "black" },
   data: [
       {
         type: "spline",
-        name: "Thickness",
         showInLegend: true,
         xValueFormatString: "",
         yValueFormatString: "",
@@ -234,7 +240,7 @@ const Moisture = () => {
           Instrument Production
         </p>
         <br />
-        <div className="block bg-card p-2 rounded-lg shadow-lg mx-8">
+        <div className="block bg-card p-2 rounded-lg shadow-lg mx-6 overflow-x-auto">
           {loading ? (
           <div className="flex flex-col items-center">
             <Spinner
@@ -251,13 +257,12 @@ const Moisture = () => {
             <CanvasJSChart options={moistureOptions} />
           )}
           </div>
-           <br />
+          <br />
           <div
             className="flex flex-row justify-center"
             direction="row"
-            spacing={5}
             align="center">
-            <div className="main flex flex-row gap-x-6">
+            <div className="main flex flex-col xl:flex-row gap-x-2 xl:gap-x-6">
               <div>
                 <label
                   htmlFor="date"
@@ -318,24 +323,22 @@ const Moisture = () => {
                   }}
                 />
               </div>
-            </div>
-            <div>
-              <br />
-              <Button
-                className="ml-4 mt-1"
-                colorScheme="blue"
-                onClick={() => handleSubmit()}
-              >
-                Submit
-              </Button>
+              <div className="xl:mt-8 sm:mt-2">
+                <Button
+                  colorScheme="blue"
+                  onClick={() => handleSubmit()}
+                >
+                  Submit
+                </Button>
+              </div>
             </div>
           </div>
           <br />
-          <div className="flex justify-center gap-6 mt-3">
-            <Button className="ml-4" colorScheme="blue" onClick={() => handleShowAll()}>
+          <div className="flex justify-center gap-6 mt-2">
+            <Button colorScheme="blue" onClick={() => handleShowAll()}>
               Show All Data
             </Button>
-            <Stack                   
+            <div                   
             sx={{
               border: "1px solid",
               borderColor: borderColor,
@@ -357,8 +360,8 @@ const Moisture = () => {
                 <option value={60}>60</option>
                 <option value={100}>100</option>
               </Select>
-            </Stack>
-            <Button className="ml-4" colorScheme="red" onClick={() => handleHideAll()}>
+            </div>
+            <Button colorScheme="red" onClick={() => handleHideAll()}>
               Hidden All Data
             </Button>
           </div>
@@ -367,7 +370,7 @@ const Moisture = () => {
           <TableContainer  className="bg-card rounded-md mx-1" 
           sx={{ 
           overflowX: "auto", 
-          maxWidth: "100%", }}>
+          maxWidth: "94%", }}>
             <Table key={colorMode} variant="simple" sx={{ minWidth: "1200px" /* Adjust as needed */ }}>
               <TableCaption sx={{
               color: tulisanColor,

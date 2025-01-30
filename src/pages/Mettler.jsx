@@ -208,11 +208,10 @@ const Mettler = () => {
       shared: true,
   },
   backgroundColor: isDarkMode ? "#171717" : "#ffffff",
-  title: { text: "Thickness", fontColor: isDarkMode ? "white" : "black" },
+  // title: { text: "Thickness", fontColor: isDarkMode ? "white" : "black" },
   data: [
       {
         type: "spline",
-        name: "Thickness",
         showInLegend: true,
         xValueFormatString: "",
         yValueFormatString: "",
@@ -257,9 +256,8 @@ const Mettler = () => {
           <div
             className="flex flex-row justify-center"
             direction="row"
-            spacing={5}
             align="center">
-            <div className="main flex flex-row gap-x-6">
+            <div className="main flex flex-col xl:flex-row gap-x-2 xl:gap-x-6">
               <div>
                 <label
                   htmlFor="date"
@@ -320,21 +318,19 @@ const Mettler = () => {
                   }}
                 />
               </div>
-            </div>
-            <div>
-              <br />
-              <Button
-                className="ml-4 mt-1"
-                colorScheme="blue"
-                onClick={() => handleSubmit()}
-              >
-                Submit
-              </Button>
+              <div className="xl:mt-8 sm:mt-2">
+                <Button
+                  colorScheme="blue"
+                  onClick={() => handleSubmit()}
+                >
+                  Submit
+                </Button>
+              </div>
             </div>
           </div>
           <br />
           <div className="flex justify-center gap-6 mt-3">
-            <Button className="ml-4" colorScheme="blue" onClick={() => handleShowAll()}>
+            <Button colorScheme="blue" onClick={() => handleShowAll()}>
               Show All Data
             </Button>
             <Stack                   
@@ -360,7 +356,7 @@ const Mettler = () => {
                 <option value={100}>100</option>
               </Select>
             </Stack>
-            <Button className="ml-4" colorScheme="red" onClick={() => handleHideAll()}>
+            <Button colorScheme="red" onClick={() => handleHideAll()}>
               Hidden All Data
             </Button>
           </div>
@@ -369,7 +365,7 @@ const Mettler = () => {
           <TableContainer  className="bg-card rounded-md mx-1" 
           sx={{ 
           overflowX: "auto", 
-          maxWidth: "100%", }}>
+          maxWidth: "94%", }}>
             <Table key={colorMode} variant="simple" sx={{ minWidth: "1200px" /* Adjust as needed */ }}>
               <TableCaption sx={{
               color: tulisanColor,
