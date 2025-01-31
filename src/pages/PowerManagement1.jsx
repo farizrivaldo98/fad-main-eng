@@ -123,6 +123,8 @@ export default function PowerManagement() {
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [loading2, setLoading2] = useState(false);
+  const [error2, setError2] = useState(null);
 
   const { colorMode } = useColorMode();
   const [isTableVisible, setIsTableVisible] = useState(true);
@@ -779,8 +781,8 @@ export default function PowerManagement() {
   };
 
   const fetchDataMonthly = async () => {
-    setLoading(true); // Start spinner
-    setError(null);   // Clear previous errors
+    setLoading2(true); // Start spinner
+    setError2(null);   // Clear previous errors
 
     try {
     let response = await axios.get(
@@ -827,11 +829,11 @@ export default function PowerManagement() {
 
   } catch (err) {
     console.error("Error fetching data:", err);
-    setError("Failed to fetch data. Please try again.");
+    setError2("Failed to fetch data. Please try again.");
   } finally {
     const delay = 2000; // 2 seconds in milliseconds
       setTimeout(() => {
-        setLoading(false); // Stop spinner
+        setLoading2(false); // Stop spinner
         console.log("Finished fetching data, stopping spinner...");
       }, delay);
   }
@@ -1368,20 +1370,18 @@ export default function PowerManagement() {
   '#cab2d6', '#ffff99', '#1f78b4', '#33a02c'];
 
   const options8 = {
-      sankey: {
-        node: { nodePadding: 20,
-                label: { fontSize: 16,
-                  fontColor: isDarkMode ? "white" : "black"
-                 },
-              },
+    sankey: {
+      node: { nodePadding: 20,
+              label: { fontSize: 16,
+                fontColor: isDarkMode ? "white" : "black"
+                },
+            },
 
-        link: {
-          colorMode: 'gradient',
-          colors: colors
-        },
-        
-        
-      }
+      link: {
+        colorMode: 'gradient',
+        colors: colors
+      }, 
+    }
   };
 
   return (
@@ -1528,7 +1528,9 @@ export default function PowerManagement() {
           <br />
           <Button
             className="ml-4"
-            size="md"
+            sx={{
+              marginBottom: "4px"
+            }}
             colorScheme="blue"
             onClick={() => fetchDataDayly()}
           >
@@ -1702,7 +1704,9 @@ export default function PowerManagement() {
           <Button
             className="ml-4"
             colorScheme="blue"
-            size="md"
+            sx={{
+              marginBottom: "4px"
+            }}
             onClick={() => fetchDataMonthly()}
           >
             Submit
@@ -1718,29 +1722,29 @@ export default function PowerManagement() {
         </div>
       </Stack>
       <div className="flex flex-row box-border justify-center p-1 mx-8 bg-card rounded-lg shadow-lg">
-      {loading ? (
-        <Spinner
-        thickness="4px"
-        speed="0.65s"
-        emptyColor="gray.200"
-        color="blue.500"
-        size="xl"
-      />
-      ) : error ? (
-        <div className="text-red-500 flex flex-col items-center">No available data</div>
-      ) : (
-        <CanvasJSChart align="center" className="" options={options2} />
-      )}
+        {loading2 ? (
+          <Spinner
+          thickness="4px"
+          speed="0.65s"
+          emptyColor="gray.200"
+          color="blue.500"
+          size="xl"
+        />
+        ) : error2 ? (
+          <div className="text-red-500 flex flex-col items-center">No available data</div>
+        ) : (
+          <CanvasJSChart align="center" className="" options={options2} />
+        )}
       </div>
 
       <Stack
-        className="flex flex-row justify-center mb-4 mt-4 "
+        className="flex flex-row justify-center my-4 "
         direction="row"
         spacing={4}
         align="center"
       >
         <div>
-          <h2>Panel</h2>
+          <h2 className="mb-1">Panel</h2>
           <Select placeholder="Select Panel" onChange={getSecArea}>
             <option value="cMT-Gedung-UTY_MVMDP_Detik_data">MVMDP</option>
             <option value="cMT-Gedung-UTY_LVMDP1_Detik_data">LVMDP1</option>
@@ -1751,7 +1755,7 @@ export default function PowerManagement() {
           </Select>
         </div>
         <div>
-          <h2>Start Time</h2>
+          <h2 className="mb-1">Start Time</h2>
           <Input
             onChange={getSecStart}
             placeholder="Select Date and Time"
@@ -1766,7 +1770,7 @@ export default function PowerManagement() {
           />
         </div>
         <div>
-          <h2>Finish Time</h2>
+          <h2 className="mb-1">Finish Time</h2>
           <Input
             onChange={getSecFinish}
             placeholder="Select Date and Time"
@@ -1782,7 +1786,9 @@ export default function PowerManagement() {
         </div>
         <div>
           <Button
-            className="ml-4"
+            sx={{
+              marginTop: "20px"
+            }}
             colorScheme="blue"
             onClick={() => fetchSec()}
           >
@@ -1858,11 +1864,13 @@ export default function PowerManagement() {
         <div>
           <br />
           <Button
-              className="m1-4"
-              colorScheme="blue"
-              onClick={() => fetchPowerSankey()}
-          >
-              Submit
+            sx={{
+              marginBottom: "4px"
+            }}
+            colorScheme="blue"
+            onClick={() => fetchPowerSankey()}
+            >
+            Submit
           </Button>
         </div>
       </Stack>

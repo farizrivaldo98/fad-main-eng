@@ -36,11 +36,11 @@ const NVMDP = () => {
     ? "https://snapshots.raintank.io/dashboard/snapshot/sxKIJvabjpjQB6qzN01qxrktG81CEd4p?orgId=0&viewPanel=38&kiosk"
     : "https://snapshots.raintank.io/dashboard/snapshot/sxKIJvabjpjQB6qzN01qxrktG81CEd4p?orgId=0&viewPanel=38&kiosk&theme=light";
     const grafanaSP = isDarkMode 
-    ? "https://snapshots.raintank.io/dashboard/snapshot/cYKqjmEe6ZXBJp2l0Fxx2kDIdZX8ZB08?orgId=0&kiosk"
-    : "https://snapshots.raintank.io/dashboard/snapshot/cYKqjmEe6ZXBJp2l0Fxx2kDIdZX8ZB08?orgId=0&kiosk&theme=light";
+    ? "https://snapshots.raintank.io/dashboard/snapshot/154zKTyB2ZXLet4VzOziZYpGLts7FkGI?orgId=0&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/154zKTyB2ZXLet4VzOziZYpGLts7FkGI?orgId=0&kiosk&theme=light";
     const grafanaSP2 = isDarkMode 
-    ? "https://snapshots.raintank.io/dashboard/snapshot/wCIculKeYpy2LdnbJgpciKpVuSubkozN?orgId=0&kiosk"
-    : "https://snapshots.raintank.io/dashboard/snapshot/wCIculKeYpy2LdnbJgpciKpVuSubkozN?orgId=0&kiosk&theme=light";
+    ? "https://snapshots.raintank.io/dashboard/snapshot/X9xTfUnwmijvtngT69lZ2xSQlrFJ02sZ?orgId=0&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/X9xTfUnwmijvtngT69lZ2xSQlrFJ02sZ?orgId=0&kiosk&theme=light";
     const grafanaMVMDPYear = isDarkMode 
     ? "https://snapshots.raintank.io/dashboard/snapshot/nKXeg5CtNW9M1GfW8MrLSHJlKtifwHze?orgId=0&kiosk"
     : "https://snapshots.raintank.io/dashboard/snapshot/nKXeg5CtNW9M1GfW8MrLSHJlKtifwHze?orgId=0&kiosk&theme=light";
@@ -245,7 +245,7 @@ const NVMDP = () => {
         )}
 {/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */}
         <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer"
-        onClick={() => setShowProd2(true)}>
+        onClick={() => setShowPopup(true)}>
           <div className="flex items-center gap-4">
             <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
               <svg
@@ -299,7 +299,7 @@ const NVMDP = () => {
         {showPopup && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
             <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
-              <p className="text-text mt-2">Ini adalah pop-up dari card LVMDP.</p>
+              <p className="text-text my-2">Ini adalah pop-up dari card LVMDP.</p>
               <iframe
                 src={grafanaLVMDP}
                 style={{
@@ -356,7 +356,7 @@ const NVMDP = () => {
         {showChillerPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
           <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
-            <p className="text-text mt-2">Ini adalah pop-up dari card Chiller.</p>
+            <p className="text-text my-2">Ini adalah pop-up dari card Chiller.</p>
             <iframe
               src={grafanaChiller}
               style={{
@@ -413,7 +413,7 @@ const NVMDP = () => {
       {showHydrantPopup && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
           <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
-            <p className="text-text mt-2">Ini adalah pop-up dari card Hydrant.</p>
+            <p className="text-text my-2">Ini adalah pop-up dari card Hydrant.</p>
             <iframe
               src={grafanaHydrant}
               style={{
@@ -469,7 +469,7 @@ const NVMDP = () => {
         {showUtil && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
             <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
-              <p className="text-text mt-2">Ini adalah pop-up dari card Utility.</p>
+              <p className="text-text my-2">Ini adalah pop-up dari card Utility.</p>
               <iframe
                 src={grafanaUtil}
                 style={{
@@ -524,7 +524,7 @@ const NVMDP = () => {
         {showProd && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
             <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
-              <p className="text-text mt-2">Ini adalah pop-up dari card SDP 1 Production.</p>
+              <p className="text-text my-2">Ini adalah pop-up dari card SDP 1 Production.</p>
               <iframe
                 src={grafanaProd1}
                 style={{

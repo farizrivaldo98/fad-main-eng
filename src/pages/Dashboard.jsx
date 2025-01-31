@@ -56,9 +56,7 @@ function Dashboard() {
       }
     };
   }, []); // Kosongkan dependency array sehingga useEffect hanya berjalan sekali saat komponen di-mount
-        
-        
-        
+           
         // if (topicMatch) {
         //   const topic = topicMatch[1];
         //   const jsonData = JSON.parse(message.replace(/.*]: /, "")); // Parse JSON
