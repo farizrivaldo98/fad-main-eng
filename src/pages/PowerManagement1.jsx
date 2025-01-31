@@ -1385,7 +1385,7 @@ export default function PowerManagement() {
   };
 
   return (
-    <div>
+    <>
       <Stack
         className="flex flex-row justify-center mb-4  "
         direction="row"
@@ -1717,7 +1717,7 @@ export default function PowerManagement() {
           </div>
         </div>
       </Stack>
-      <div className="flex flex-row p-1 mx-8 bg-card rounded-lg shadow-lg">
+      <div className="flex flex-row box-border justify-center p-1 mx-8 bg-card rounded-lg shadow-lg">
       {loading ? (
         <Spinner
         thickness="4px"
@@ -1781,7 +1781,6 @@ export default function PowerManagement() {
           />
         </div>
         <div>
-          <br />
           <Button
             className="ml-4"
             colorScheme="blue"
@@ -1823,15 +1822,13 @@ export default function PowerManagement() {
       </div>
       <br />
       <Stack
-          className="flex flex-row justify-center mb-4  "
-          direction="row"
-          spacing={4}
-          align="center">
-          
-          <div>
+        className="flex flex-row justify-center mb-4  "
+        direction="row"
+        spacing={4}
+        align="center">  
+        <div>
           <h2 className="mb-1">Start Time</h2>
-          <Input
-            onChange={sankeyStart}
+          <Input onChange={sankeyStart}
             placeholder="Select Date and Time"
             size="md"
             type="date"
@@ -1858,20 +1855,20 @@ export default function PowerManagement() {
             }}
           />
         </div>
-          <div>
-              <br />
-              <Button
-                  className="m1-4"
-                  colorScheme="blue"
-                  onClick={() => fetchPowerSankey()}
-              >
-                  Submit
-              </Button>
-          </div>
-        </Stack>
-        <div align="center"><h1 style={{ fontSize: "2rem"}}><b className="text-text">Power Sankey Diagram </b></h1></div>
-        <div align="center"><h3 style={{ fontSize: "1rem"}}><b className="text-text">kWh</b></h3></div>
-        <div align="center" className="flex flex-row justify-center mx-12 pb-10">
+        <div>
+          <br />
+          <Button
+              className="m1-4"
+              colorScheme="blue"
+              onClick={() => fetchPowerSankey()}
+          >
+              Submit
+          </Button>
+        </div>
+      </Stack>
+      <div align="center"><h1 style={{ fontSize: "2rem"}}><b className="text-text">Power Sankey Diagram </b></h1></div>
+      <div align="center"><h3 style={{ fontSize: "1rem"}}><b className="text-text">kWh</b></h3></div>
+      <div align="center" className="flex flex-row justify-center mx-12 pb-10">
         <Chart
           chartType= "Sankey"
           width= "100%"
@@ -1879,10 +1876,10 @@ export default function PowerManagement() {
           data={data}
           options={options8}>
         </Chart>
-        </div>
-        <div align="center"><h1 style={{ fontSize: "2rem"}}><b>Power Sankey Diagram (%)</b></h1></div>
-        <div align="center"><h3 style={{ fontSize: "1rem"}}><b>Total Supply Listrik : {supplylistrik} Kwh</b></h3></div>
-        <div align="center" className="flex flex-row justify-center mx-12 pb-10">
+      </div>
+      <div align="center"><h1 style={{ fontSize: "2rem"}}><b>Power Sankey Diagram (%)</b></h1></div>
+      <div align="center"><h3 style={{ fontSize: "1rem"}}><b>Total Supply Listrik : {supplylistrik} Kwh</b></h3></div>
+      <div align="center" className="flex flex-row justify-center mx-12 pb-10">
         <Chart
           chartType="Sankey"
           width= "100%"
@@ -1890,7 +1887,7 @@ export default function PowerManagement() {
           data={data1}
           options={options8}>
         </Chart>
-        </div>
-    </div>
+      </div>
+    </>
   );
 }

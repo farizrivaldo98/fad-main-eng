@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useRef } from "react";
 import YardIcon from '@mui/icons-material/Yard';
 import { GrFanOption } from "react-icons/gr";
 import { GiBaseDome } from "react-icons/gi";
@@ -7,71 +6,72 @@ import { PiPlantFill } from "react-icons/pi";
 import { IoLogoElectron } from "react-icons/io5";
 
 const PDAM = () => {
-    const [messages, setMessages] = useState({}); // Semua pesan
-    const [filteredBoiler, setFilteredBoiler] = useState(null); // Nilai spesifik yang ditampilkan
-    const [filteredDomestik, setFilteredDomestik] = useState(null); // Nilai spesifik yang ditampilkan
-    const [filteredInlet, setFilteredInlet] = useState(null); // Nilai spesifik yang ditampilkan
-    const [filteredOsmotron, setFilteredOsmotron] = useState(null);
-    const [filteredTamanPos, setFilteredTamanPos] = useState(null); 
+    const [inlet, setInlet] = useState(null);
+    const [domestic, setDomestic] = useState(null);
+    const [tamanpos, setTamanPos] = useState(null);
+    const [rejectosmo, setRejectOsmo] = useState(null);
+    const [boiler, setBoiler] = useState(null);
+
+    const socketRef = useRef(null);
+
+    const [showPopup, setShowPopup] = useState(false); // ini kode bikin pop-up coba dulu dah
+
+    const [isDarkMode, setIsDarkMode] = useState(
+        document.documentElement.getAttribute("data-theme") === "dark"
+    );
 
     useEffect(() => {
-        const socket = new WebSocket("ws://10.126.15.137:8081");
+        // Buat koneksi WebSocket
+        socketRef.current = new WebSocket("ws://10.126.15.137:1880/ws/test");
     
-        socket.onopen = () => {
+        socketRef.current.onopen = () => {
         console.log("WebSocket connected");
         };
-      
-        socket.onmessage = (event) => {
-            try {
-              const message = event.data;
-              const topicMatch = message.match(/MQTT \[(.+?)\]:/); // Ambil nama topik
-              console.log(event.data);
-              if (topicMatch) {
-                const topic = topicMatch[1];
-                const jsonData = JSON.parse(message.replace(/.*]: /, "")); // Parse JSON
-                const newMessages = {
-                  ...messages,
-                  [topic]: jsonData.d || {},
-                };
-               
-                
-                setMessages(newMessages);
-      
-                // Ambil nilai spesifik (contoh untuk kwhmeter.MVMDP)
-                if (topic === "dbwater" && jsonData.d?.Boiler) {
-                  setFilteredBoiler(jsonData.d.Boiler[0]); // Ambil nilai pertama
-                }
-                if (topic === "dbwater" && jsonData.d?.Domestik) {
-                  setFilteredDomestik(jsonData.d.Domestik[0]); // Ambil nilai pertama
-                }
-                if (topic === "dbwater" && jsonData.d?.inlet_pretreatment) {
-                  setFilteredInlet(jsonData.d.inlet_pretreatment[0]); // Ambil nilai pertama
-                }
-                if (topic === "dbwater" && jsonData.d?.reject_osmotron) {
-                  setFilteredOsmotron(jsonData.d.reject_osmotron[0]); // Ambil nilai pertama
-                }
-                if (topic === "dbwater" && jsonData.d?.taman_posjaga) {
-                  setFilteredTamanPos(jsonData.d.taman_posjaga[0]); // Ambil nilai pertama
-                }
-              }
-            } catch (error) {
-              console.error("Error parsing WebSocket message:", error);
-            }
-          };
-      
-          socket.onerror = (error) => {
-            console.error("WebSocket error:", error);
-          };
-      
-          socket.onclose = () => {
-            console.log("WebSocket disconnected");
-          };
-      
-          return () => {
-            
-            socket.close(); // Tutup koneksi WebSocket
-          };
-        }, [messages]);
+    
+        socketRef.current.onmessage = (event) => {
+        try {
+            const message = event.data;
+            const varWebSocket = JSON.parse(message);
+            console.log(varWebSocket);
+    
+            // Set state untuk masing-masing nilai
+            setInlet(varWebSocket["Inlet"]);
+            setDomestic(varWebSocket["Domestic"]);
+            setTamanPos(varWebSocket["TamanPosJaga"]);
+            setBoiler(varWebSocket["Boiler"]);
+            setRejectOsmo(varWebSocket["RejectOsmotron"]);
+        } catch (error) {
+            console.error("Error parsing WebSocket message:", error);
+        }
+        };
+    
+        socketRef.current.onerror = (error) => {
+        console.error("WebSocket error:", error);
+        };
+    
+        socketRef.current.onclose = () => {
+        console.log("WebSocket disconnected");
+        };
+    
+        // Tutup koneksi WebSocket saat komponen akan di-unmount
+        return () => {
+        if (socketRef.current) {
+            socketRef.current.close();
+        }
+        };
+    }, []); // Kosongkan dependency array sehingga useEffect hanya berjalan sekali saat komponen di-mount
+
+    useEffect(() => {
+        const handleThemeChange = () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        setIsDarkMode(currentTheme === 'dark');
+        };
+        // Observe attribute changes
+        const observer = new MutationObserver(handleThemeChange);
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+    
+        return () => observer.disconnect();
+    }, []);
       
 
   return (
@@ -86,8 +86,8 @@ const PDAM = () => {
                 </div>
                 <div className="mt-4 flex items-end justify-between">
                     <div>
-                        <h4 className="text-[28px] font-bold font-poppins relative text-black dark:text-white">{filteredBoiler !== null && filteredBoiler !== undefined 
-                            ? parseFloat(filteredBoiler).toFixed(2) 
+                        <h4 className="text-[28px] font-bold font-poppins relative text-black dark:text-white">{boiler !== null && boiler !== undefined 
+                            ? parseFloat(boiler).toFixed(2) 
                             : "N/A"}
                         </h4>
                         <span className="text-[16px] gap-1 font-medium font-poppins text-black dark:text-white">Total</span>
@@ -119,7 +119,7 @@ const PDAM = () => {
                 </div>
                 <div className="mt-4 flex items-end justify-between">
                     <div>
-                        <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{filteredDomestik ?? "N/A"}</h4>
+                        <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{domestic ?? "N/A"}</h4>
                         <span className="text-[16px] font-medium font-poppins text-black dark:text-white">Total</span>
                     </div>
                     <span className="flex items-center gap-1 text-sm font-medium text-meta-3">4.35%
@@ -148,7 +148,7 @@ const PDAM = () => {
                 </div>
                 <div className="mt-4 flex items-end justify-between">
                     <div>
-                        <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{filteredInlet ?? "N/A"}</h4>
+                        <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{inlet ?? "N/A"}</h4>
                         <span className="text-[16px] font-medium font-poppins text-black dark:text-white">Total</span>
                     </div>
                     <span className="flex items-center gap-1 text-sm font-medium text-meta-3">2.59%
@@ -180,8 +180,8 @@ const PDAM = () => {
                 </div>
                 <div className="mt-4 flex items-end justify-between">
                     <div>
-                        <h4 className="text-[28px] font-bold font-poppins relative text-black dark:text-white">{filteredOsmotron !== null && filteredOsmotron !== undefined 
-                            ? parseFloat(filteredOsmotron).toFixed(2) 
+                        <h4 className="text-[28px] font-bold font-poppins relative text-black dark:text-white">{rejectosmo !== null && rejectosmo !== undefined 
+                            ? parseFloat(rejectosmo).toFixed(2) 
                             : "N/A"}
                         </h4>
                         <span className="text-[16px] gap-1 font-medium font-poppins text-black dark:text-white">Total</span>
@@ -213,8 +213,8 @@ const PDAM = () => {
                 </div>
                 <div className="mt-4 flex items-end justify-between">
                     <div>
-                        <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{filteredTamanPos !== null && filteredTamanPos !== undefined 
-                            ? parseFloat(filteredTamanPos).toFixed(2) 
+                        <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{tamanpos !== null && tamanpos !== undefined 
+                            ? parseFloat(tamanpos).toFixed(2) 
                             : "N/A"}</h4>
                         <span className="text-[16px] font-medium font-poppins text-black dark:text-white">Total</span>
                     </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Header from "../components/header";
 // import City from '../assets/3dcity.png';
 import { Spinner } from "@chakra-ui/react";
@@ -8,81 +8,89 @@ import NVMDP from "./NVMDP";
 import PDAM from "./PDAM";
 
 function Dashboard() {
-  const [messages, setMessages] = useState({}); // Semua pesan
-  const [filteredValue, setFilteredValue] = useState(null); // Nilai spesifik yang ditampilkan
-  const [filteredValue2, setFilteredValue2] = useState(null); // Nilai spesifik yang ditampilkan
-  const [filteredValue3, setFilteredValue3] = useState(null); // Nilai spesifik yang ditampilkan
-  const [masterboxData, setMasterboxData] = useState({
-    masterboxL3_1: [0],
-    masterboxL3_2: [0],
-    masterboxL2_2: [0],
-    MasterBoxL1: [0],
-  });
+  const [data, setData] = useState({});
+  const socketRef = useRef(null);
+
   const [activeCard, setActiveCard] = useState(null); // Menyimpan card yang aktif
   const [loading, setLoading] = useState(false); // Mengontrol spinner
   const [error, setError] = useState(false); // Mengontrol pesan error
+
+
+  const [wsMVMDP, setWSMVMDP ] = useState();
 
   const [isDarkMode, setIsDarkMode] = useState(
     document.documentElement.getAttribute("data-theme") === "dark"
   );
 
   useEffect(() => {
-    const socket = new WebSocket("ws://10.126.15.137:8081");
+    // Buat koneksi WebSocket
+    socketRef.current = new WebSocket("ws://10.126.15.137:1880/ws/test");
 
-    socket.onopen = () => {
+    socketRef.current.onopen = () => {
       console.log("WebSocket connected");
     };
 
-    socket.onmessage = (event) => {
+    socketRef.current.onmessage = (event) => {
       try {
         const message = event.data;
-        const topicMatch = message.match(/MQTT \[(.+?)\]:/); // Ambil nama topik
-        console.log(event.data);
-        if (topicMatch) {
-          const topic = topicMatch[1];
-          const jsonData = JSON.parse(message.replace(/.*]: /, "")); // Parse JSON
-          const newMessages = {
-            ...messages,
-            [topic]: jsonData.d || {},
-          };
-         
-          
-          setMessages(newMessages);
-
-          // Ambil nilai spesifik (contoh untuk kwhmeter.MVMDP)
-          if (topic === "kwhmeter" && jsonData.d?.MVMDP) {
-            setFilteredValue(jsonData.d.MVMDP[0]); // Ambil nilai pertama
-          }
-          if (topic === "dbwater" && jsonData.d?.PDAM) {
-            setFilteredValue2(jsonData.d.PDAM[0]); // Ambil nilai pertama
-          }
-          if (topic === "totalgas" && jsonData.d?.gas_total_boiler) {
-            setFilteredValue3(jsonData.d.gas_total_boiler[0]); // Ambil nilai pertama
-          }
-          if (topic === "masterbox" && jsonData.d) {
-            console.log("Masterbox data:", jsonData.d);
-            setMasterboxData(jsonData.d); // Update state
-          }
-          
-        }
+        const varWebSocket = JSON.parse(message);
+        console.log(varWebSocket);
+        setData(varWebSocket); // Simpan seluruh objek dalam satu state
       } catch (error) {
         console.error("Error parsing WebSocket message:", error);
       }
     };
 
-    socket.onerror = (error) => {
+    socketRef.current.onerror = (error) => {
       console.error("WebSocket error:", error);
     };
 
-    socket.onclose = () => {
+    socketRef.current.onclose = () => {
       console.log("WebSocket disconnected");
     };
 
+    // Tutup koneksi WebSocket saat komponen akan di-unmount
     return () => {
-      
-      socket.close(); // Tutup koneksi WebSocket
+      if (socketRef.current) {
+        socketRef.current.close();
+      }
     };
-  }, [messages]);
+  }, []); // Kosongkan dependency array sehingga useEffect hanya berjalan sekali saat komponen di-mount
+        
+        
+        
+        // if (topicMatch) {
+        //   const topic = topicMatch[1];
+        //   const jsonData = JSON.parse(message.replace(/.*]: /, "")); // Parse JSON
+        //   const newMessages = varWebSocket
+          
+        //   // {
+        //   //   ...messages,
+        //   //   [topic]: jsonData.d || {},
+        //   // };
+         
+         
+          
+        //   setMessages(newMessages);
+        //   console.log(typeof(jsonData.MVMDP));
+          
+          
+        //   // Ambil nilai spesifik (contoh untuk kwhmeter.MVMDP)
+        //   if (topic === "MVMDP" && jsonData.d?.MVMDP) {
+        //     setFilteredValue(jsonData.d.MVMDP[0]); // Ambil nilai pertama
+        //   }
+        //   if (topic === "dbwater" && jsonData.d?.PDAM) {
+        //     setFilteredValue2(jsonData.d.PDAM[0]); // Ambil nilai pertama
+        //   }
+        //   if (topic === "totalgas" && jsonData.d?.gas_total_boiler) {
+        //     setFilteredValue3(jsonData.d.gas_total_boiler[0]); // Ambil nilai pertama
+        //   }
+        //   if (topic === "masterbox" && jsonData.d) {
+        //     console.log("Masterbox data:", jsonData.d);
+        //     setMasterboxData(jsonData.d); // Update state
+        //   }
+          
+        // }
 
   useEffect(() => {
     if (activeCard) {
@@ -161,7 +169,7 @@ function Dashboard() {
             </div>
             <div>
               <h1 className="text-2xl text-text font-bold font-DMSans">MVMDP</h1>
-              <span className="block text-xl text-text font-semibold">{filteredValue ?? "Loading..."}</span>
+              <span className="block text-xl text-text font-semibold">{data.MVMDP ?? "Loading..."}</span>
               <span className="block text-gray-500">Kwh</span>
             </div>
           </div>
@@ -176,7 +184,7 @@ function Dashboard() {
             </div>
             <div>
               <h1 className="text-2xl text-black dark:text-white font-bold font-DMSans">PDAM</h1>
-              <span className="block text-black dark:text-white text-xl font-semibold">{filteredValue2 ?? "Loading..."}</span>
+              <span className="block text-black dark:text-white text-xl font-semibold">{data.PDAM ?? "Loading..."}</span>
               <span className="block text-gray-500">kubik</span>
             </div>
           </div>
@@ -188,7 +196,7 @@ function Dashboard() {
             </div>
             <div>
               <h1 className="text-2xl text-black dark:text-white font-bold font-DMSans">Gas Boiler</h1>
-              <span className="inline-block text-xl text-black dark:text-white font-semibold">{filteredValue3 ?? "Loading..."}</span>
+              <span className="inline-block text-xl text-black dark:text-white font-semibold">{data.Total_Gas_Boiler ?? "Loading..."}</span>
               <span className="block text-gray-500">Gas</span>
             </div>
           </div>
@@ -208,7 +216,7 @@ function Dashboard() {
               </div>
               <div className="grid grid-cols-4 text-center pt-2">
                 <div className="text-text font-semibold">A</div>
-                <div className="text-text">{masterboxData?.MasterBoxL1?.[0] ?? "N/A"}</div>
+                <div className="text-text">{data.MasterBoxL1 ?? "N/A"}</div>
                 {/* <div role="status" class="max-w-sm animate-pulse">
                   <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
                   <span class="sr-only">Loading...</span>
@@ -223,13 +231,13 @@ function Dashboard() {
                     alignItems="center"
                   />
                 </div>
-                <div className="text-text">{masterboxData?.masterboxL3_1?.[0] ?? "N/A"}</div>
+                <div className="text-text">{data.MasterBoxL3_1 ?? "N/A"}</div>
               </div>
               <div className="grid grid-cols-4 text-center">
                 <div className="text-text font-semibold">B</div>
                 <div className="text-text">N/A</div>
-                <div className="text-text">{masterboxData?.masterboxL2_2?.[0] ?? "N/A"}</div>
-                <div className="text-text">{masterboxData?.masterboxL3_2?.[0] ?? "N/A"}</div>
+                <div className="text-text">{data.MasterBoxL2_2 ?? "N/A"}</div>
+                <div className="text-text">{data.MasterBoxL3_2 ?? "N/A"}</div>
               </div>
               <div className="grid grid-cols-4 text-center">
                 <div className="text-text font-semibold">C</div>
