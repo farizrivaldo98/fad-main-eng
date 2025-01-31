@@ -323,8 +323,8 @@ function Dashboard() {
       </section>
         
         <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-[30px] 2xl:gap-[10px]">
-          <Chart01 />
-          <Chart02 />
+          {/* <Chart01 />
+          <Chart02 /> */}
           {/* <div className="col-span-12 rounded-sm border border-stroke bg-white py-6 shadow-default dark:border-strokedark dark:bg-boxdark xl:col-span-4"> */}
           
           {/* </div> */}

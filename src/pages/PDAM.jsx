@@ -14,11 +14,37 @@ const PDAM = () => {
 
     const socketRef = useRef(null);
 
-    const [showPopup, setShowPopup] = useState(false); // ini kode bikin pop-up coba dulu dah
+    const [showInlet, setShowInlet] = useState(false); // ini kode bikin pop-up coba dulu dah
+    const [showDomestic, setShowDomestic] = useState(false);
+    const [showTamanPos, setShowTamanPos] = useState(false); 
+    const [showOsmo, setShowOsmo] = useState(false); 
+    const [showBoiler, setShowBoiler] = useState(false); 
 
     const [isDarkMode, setIsDarkMode] = useState(
         document.documentElement.getAttribute("data-theme") === "dark"
     );
+
+    const grafanaInlet = isDarkMode 
+    ? "https://snapshots.raintank.io/dashboard/snapshot/qu9c61rKSAKBVDFnELoLGbigEa2bEFhK?orgId=0&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/qu9c61rKSAKBVDFnELoLGbigEa2bEFhK?orgId=0&kiosk&theme=light";
+    const grafanaDomestic = isDarkMode 
+    ? "https://snapshots.raintank.io/dashboard/snapshot/F2S4hzK528lnJKXhrqXuuXuANZ2ukGiJ?orgId=0&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/F2S4hzK528lnJKXhrqXuuXuANZ2ukGiJ?orgId=0&kiosk&theme=light";
+    const grafanaTaman = isDarkMode 
+    ? "https://snapshots.raintank.io/dashboard/snapshot/lIetxbn0LnxATh9nkYk9af7lvnaSFeg8?orgId=0&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/lIetxbn0LnxATh9nkYk9af7lvnaSFeg8?orgId=0&kiosk&theme=light";
+    const grafanaOsmo = isDarkMode 
+    ? "https://snapshots.raintank.io/dashboard/snapshot/v1Ret7UfE1QbpyhYNOkEh98jlcc0IatX?orgId=0&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/v1Ret7UfE1QbpyhYNOkEh98jlcc0IatX?orgId=0&kiosk&theme=light";
+    const grafanaBoiler = isDarkMode 
+    ? "https://snapshots.raintank.io/dashboard/snapshot/rjp6mbq3O8HEpUwdOKfZ7FYpif7XMu4Y?orgId=0&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/rjp6mbq3O8HEpUwdOKfZ7FYpif7XMu4Y?orgId=0&kiosk&theme=light";
+    const grafanaPDAMMonth = isDarkMode 
+    ? "https://snapshots.raintank.io/dashboard/snapshot/T7IQgfFb5B4gGT16l7u7mV7RKmzoBJSW?orgId=0&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/T7IQgfFb5B4gGT16l7u7mV7RKmzoBJSW?orgId=0&kiosk&theme=light";
+    const grafanaPDAMYear = isDarkMode 
+    ? "https://snapshots.raintank.io/dashboard/snapshot/hV5Qr0FJLj4uBZ2EIkhChrfJwibVyrUz?orgId=0&kiosk"
+    : "https://snapshots.raintank.io/dashboard/snapshot/hV5Qr0FJLj4uBZ2EIkhChrfJwibVyrUz?orgId=0&kiosk&theme=light";
 
     useEffect(() => {
         // Buat koneksi WebSocket
@@ -77,10 +103,11 @@ const PDAM = () => {
   return (
     <>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-2 transition delay-300">
-            <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-buatcard bg-coba">
+            <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer"
+            onClick={() => setShowBoiler(true)}>
                 <div className="flex items-center gap-4">
                     <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
-                        <GrFanOption size={31} className="flex-shrink-0 m-1 z-50 "/>
+                        <GrFanOption size={31} className="flex-shrink-0 m-1 z-10 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Boiler</h1>
                 </div>
@@ -110,10 +137,37 @@ const PDAM = () => {
                     </span>
                 </div>
             </div>
-            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
+            {/* Pop-Up */}
+            {showBoiler && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
+                    <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
+                    <p className="text-text my-2">Ini adalah pop-up dari card Reject Osmotron.</p>
+                    <iframe
+                        src={grafanaBoiler}
+                        style={{
+                        border: 'none', // Removes border
+                        position: 'relative',
+                        width: '100%', // Full width of parent div
+                        aspectRatio: '16 / 6', // Adjust aspect ratio as needed
+                        height: '580px'
+                        }}
+                        title="Grafana Chart">
+                    </iframe>
+                    <button
+                        onClick={() => setShowBoiler(false)}
+                        className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full"
+                    >
+                        X
+                    </button>
+                    </div>
+                </div>
+            )}
+{/* ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
+            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer"
+            onClick={() => setShowDomestic(true)}>
                 <div className="flex items-center gap-4">
                     <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
-                        <GiBaseDome size={31} className="flex-shrink-0 m-1 z-50 "/>
+                        <GiBaseDome size={31} className="flex-shrink-0 m-1 z-10 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Domestik</h1>
                 </div>
@@ -139,10 +193,37 @@ const PDAM = () => {
                     </span>
                 </div>
             </div>
-            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
+            {/* Pop-Up */}
+            {showDomestic && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
+                <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
+                <p className="text-text my-2">Ini adalah pop-up dari card Domestik.</p>
+                <iframe
+                    src={grafanaDomestic}
+                    style={{
+                    border: 'none', // Removes border
+                    position: 'relative',
+                    width: '100%', // Full width of parent div
+                    aspectRatio: '16 / 6', // Adjust aspect ratio as needed
+                    height: '580px'
+                    }}
+                    title="Grafana Chart">
+                </iframe>
+                <button
+                    onClick={() => setShowDomestic(false)}
+                    className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full"
+                >
+                    X
+                </button>
+                </div>
+            </div>
+            )}
+{/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */}
+            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer"
+            onClick={() => setShowInlet(true)}>
                 <div className="flex items-center gap-4">
                     <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
-                        <PiPlantFill size={32} className="flex-shrink-0 m-1 z-50 "/>
+                        <PiPlantFill size={32} className="flex-shrink-0 m-1 z-10 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Inlet Pre-Treatment</h1>
                 </div>
@@ -169,12 +250,38 @@ const PDAM = () => {
                 </div>
             </div>
         </div>
-        {/* -----------------------------------------------------------   &&&  -------------------------------------------------------------------- */}
+        {/* Pop-Up */}
+        {showInlet && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
+            <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
+              <p className="text-text my-2">Ini adalah pop-up dari card Inlet.</p>
+              <iframe
+                src={grafanaInlet}
+                style={{
+                  border: 'none', // Removes border
+                  position: 'relative',
+                  width: '100%', // Full width of parent div
+                  aspectRatio: '16 / 6', // Adjust aspect ratio as needed
+                  height: '580px'
+                }}
+                title="Grafana Chart">
+              </iframe>
+              <button
+                onClick={() => setShowInlet(false)}
+                className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        )}
+{/* -----------------------------------------------------------   &&&  -------------------------------------------------------------------- */}
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-2 transition delay-300">
-            <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-buatcard bg-coba">
+            <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer"
+            onClick={() => setShowOsmo(true)}>
                 <div className="flex items-center gap-4">
                     <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
-                        <IoLogoElectron size={32}  className="flex-shrink-0 m-1 z-50 "/>
+                        <IoLogoElectron size={32}  className="flex-shrink-0 m-1 z-10 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Reject Osmotron</h1>
                 </div>
@@ -204,10 +311,37 @@ const PDAM = () => {
                     </span>
                 </div>
             </div>
-            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba">
+            {/* Pop-Up */}
+            {showOsmo && (
+            <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
+                <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
+                <p className="text-text my-2">Ini adalah pop-up dari card Reject Osmotron.</p>
+                <iframe
+                    src={grafanaOsmo}
+                    style={{
+                    border: 'none', // Removes border
+                    position: 'relative',
+                    width: '100%', // Full width of parent div
+                    aspectRatio: '16 / 6', // Adjust aspect ratio as needed
+                    height: '580px'
+                    }}
+                    title="Grafana Chart">
+                </iframe>
+                <button
+                    onClick={() => setShowOsmo(false)}
+                    className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full"
+                >
+                    X
+                </button>
+                </div>
+            </div>
+            )}
+{/* --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- */}
+            <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer"
+            onClick={() => setShowTamanPos(true)}>
                 <div className="flex items-center gap-4">
                     <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
-                        <YardIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-50 "/>
+                        <YardIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
                     </div>
                     <h1 className="text-text text-2xl font-semibold font-DMSans">Taman Pos Jaga</h1>
                 </div>
@@ -236,6 +370,62 @@ const PDAM = () => {
                 </div>
             </div>
         </div>
+        {/* Pop-Up */}
+        {showTamanPos && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
+            <div className="rounded-md border border-border shadow-buatcard bg-coba p-6 relative w-full">
+              <p className="text-text my-2">Ini adalah pop-up dari card Taman Pos Jaga.</p>
+              <iframe
+                src={grafanaTaman}
+                style={{
+                  border: 'none', // Removes border
+                  position: 'relative',
+                  width: '100%', // Full width of parent div
+                  aspectRatio: '16 / 6', // Adjust aspect ratio as needed
+                  height: '580px'
+                }}
+                title="Grafana Chart">
+              </iframe>
+              <button
+                onClick={() => setShowTamanPos(false)}
+                className="absolute top-3 right-3 bg-red-500 text-white px-3 py-1 rounded-full"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        )}
+{/* -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------         */}
+        <div className="text-center mt-8 p-2 shadow-buatcard bg-coba rounded-md relative">
+        <h1 className="text-center text-text text-4xl antialiased hover:subpixel-antialiased mb-2">PDAM Chart</h1>
+        <iframe
+          src={grafanaPDAMMonth}
+          // width="540"
+          // height="480"
+          style={{
+            border: 'none', // Removes border
+            position: 'relative',
+            width: '100%', // Full width of parent div
+            aspectRatio: '16 / 6', // Adjust aspect ratio as needed
+            height: '800px' // Set a fixed height for the iframe
+          }}
+          title="Grafana Chart">
+        </iframe>
+        <br/>
+        <iframe
+          src={grafanaPDAMYear}
+          // width="540"
+          // height="480"
+          style={{
+            border: 'none', // Removes border
+            position: 'relative',
+            width: '100%', // Full width of parent div
+            aspectRatio: '16 / 6', // Adjust aspect ratio to match the desired size
+            height: '800px', // Set a fixed height for the iframe
+          }}
+          title="Grafana Chart">
+        </iframe>
+      </div>
 
     </>
   )

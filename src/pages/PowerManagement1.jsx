@@ -1619,7 +1619,7 @@ export default function PowerManagement() {
             </option>
             <option value="cMT-Gedung-UTY_PP.2-Puyer_data">PP.2-Puyer</option>
             <option value="cMT-Gedung-UTY_PP.2-Mixagrib_data">
-              PP.2-Mixagrib
+              PP.2-Mixagrip
             </option>
             <option value="cMT-Gedung-UTY_PP.2-LabLt.2_data">
               PP.2-LabLt.2
