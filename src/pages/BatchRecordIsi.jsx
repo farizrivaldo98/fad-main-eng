@@ -646,7 +646,7 @@ const BatchRecordIsi = () => {
               </TableContainer>
             </div>
             {/* Pagination Controls */}
-            <div className="flex justify-center items-center mt-4 gap-4">
+            <div className="flex justify-center items-center mt-4 gap-4 mb-2">
               <Button
                 onClick={handlePrevPage}
                 isDisabled={currentPage === 1}
@@ -655,11 +655,11 @@ const BatchRecordIsi = () => {
                 Previous
               </Button>
               <span className="text-text">
-                Page {currentPage} of {Math.ceil(mainData.length / rowsPerPage)}
+                Page {currentPage} of {Math.ceil(allDataEBR.length / rowsPerPage)}
               </span>
               <Button
                 onClick={handleNextPage}
-                isDisabled={currentPage === Math.ceil(mainData.length / rowsPerPage)}
+                isDisabled={currentPage === Math.ceil(allDataEBR.length / rowsPerPage)}
                 colorScheme="blue"
               >
                 Next

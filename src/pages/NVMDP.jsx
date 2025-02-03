@@ -75,7 +75,7 @@ const NVMDP = () => {
         try {
           const message = event.data;
           const varWebSocket = JSON.parse(message);
-          console.log(varWebSocket);
+          //console.log(varWebSocket);
   
           // Set state untuk masing-masing nilai
           setSdp1Produksi(varWebSocket["SDP_1Produksi"]);
