@@ -709,7 +709,6 @@
                           ))}
                       </SimpleGrid>
                     </Box>
-
                     <Button colorScheme="blue" type="submit" width="full" onClick={() => {submitHendeler()}}>
                       Submit
                     </Button>
