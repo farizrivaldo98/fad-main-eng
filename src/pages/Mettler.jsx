@@ -252,7 +252,7 @@ const Mettler = () => {
             <CanvasJSChart options={mettlerOptions} />
           )}
           </div>
-           <br />
+          <br />
           <div
             className="flex flex-row justify-center"
             direction="row"

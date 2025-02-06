@@ -216,9 +216,6 @@
           } catch (error) {
             console.error("Error fetching data:", error);
           }
-
-
-
         };
         //console.log(getJam);
         fetchData();
@@ -237,20 +234,8 @@
   
    
          console.log(dataTotalUang);
-         
-         
+        
       }, []);
-
-
-      useEffect(() => {
-
-      
-         
-
-      },[])
-
-      
-     
 
       // Handle Option
       const limitOption = (e) => {
@@ -509,10 +494,10 @@
     //     createParameterPost()
     //   };
 
-    const submitHendeler = async () => {
-      await createJamPost();
-      await createParameterPost();
-      await createLimit();
+    const submitHendeler = () => {
+       createJamPost();
+       createParameterPost();
+       createLimit();
     };
   
     const createJamPost = async () => {
@@ -739,7 +724,10 @@
                   </div>
                 </div>
                 <div className="space-y-1 pl-[88px]">
-                    <Progress hasStripe value={data.PDAM} max={getLimit.Limit_Air} colorScheme="green" className="rounded-full"/>
+                    <Progress hasStripe value={data.MVMDP} max={getLimit.Limit_Listrik} className="rounded-full" sx={{
+                    '& > div': { backgroundColor: '#F3E8FF' }, // Warna kustom untuk bar
+                    backgroundColor: isDarkMode ? '#282828' : '#ffffff' // Warna kustom untuk track
+                  }} />
                     <div className="flex justify-end">
                     <span
                       className="flex items-center gap-1 text-[16px] pt-1 font-light text-gray-500">{((data.MVMDP / getLimit.Limit_Listrik )*100).toFixed(1)}%
@@ -798,7 +786,7 @@
                   activeCard === "PDAM" ? "ring-4 ring-blue-500" : ""
                 }`}
                 onClick={() => handleCardClick("PDAM")}>
-                <div className="flex w-full">
+                <div className="flex items-center mb-1">
                   <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-green-600 bg-green-100 rounded-full mr-6">
                     <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
                       <path strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -810,14 +798,16 @@
                     <span className="block text-gray-500">kubik</span>
                     <span className="block text-green-700 text-xl font-semibold">{(data.PDAM * dataTotalUangAir).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' }) }</span>
                   </div>
-                  <div className="mt-2 w-full">
-                      {/* <Progress hasStripe value={data.PDAM} max={getLimit.Limit_Air} colorScheme="green" /> */}
-                  </div>
                 </div>
-
-                <div className="flex flex-row-reverse w-full">
+                <div className="space-y-1 pl-[88px]">
+                  <Progress hasStripe value={data.PDAM} max={getLimit.Limit_Air} className="rounded-full"
+                  sx={{
+                    '& > div': { backgroundColor: '#DCFCE7' }, // Warna kustom untuk bar
+                    backgroundColor: isDarkMode ? '#282828' : '#ffffff' // Warna kustom untuk track
+                  }} />
+                  <div className="flex justify-end">
                     <span
-                      className="flex items-center gap-1 text-[16px] pt-1 justify-end font-light text-gray-500">{((data.PDAM / getLimit.Limit_Air )*100).toFixed(1)}%
+                      className="flex items-center gap-1 text-[16px] pt-1 font-light text-gray-500">{((data.PDAM / getLimit.Limit_Air )*100).toFixed(1)}%
                       <svg
                         className="fill-gray-500"
                         width="10"
@@ -833,6 +823,7 @@
                       </svg>
                     </span>
                   </div>
+                </div>
               </div>
               {/* <div className="p-8 shadow-buatcard bg-coba rounded-lg dark:border-strokedark">
                 <div className="flex w-full">
@@ -870,9 +861,9 @@
                 </div>
               </div> */}
 
-<div className="p-8 shadow-buatcard bg-coba rounded-lg dark:border-strokedark cursor-pointer transform transition duration-300 hover:scale-105 active:scale-65">
-                <div className="flex w-full">
-                <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-red-600 bg-red-100 rounded-full mr-6">
+              <div className="p-8 shadow-buatcard bg-coba rounded-lg dark:border-strokedark cursor-pointer transform transition duration-300 hover:scale-105 active:scale-65">
+                <div className="flex items-center mb-1">
+                  <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-red-600 bg-red-100 rounded-full mr-6">
                     <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
                       <path strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
                     </svg>
@@ -883,14 +874,15 @@
                     <span className="block text-gray-500">MBTU</span>
                     <span className="block text-green-700 text-xl font-semibold">{(data.Total_Gas_Boiler * dataTotalUangGas).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' }) }</span>
                   </div>
-                  <div className="mt-2 w-full">
-                      {/* <Progress hasStripe value={data.PDAM} max={getLimit.Limit_Air} colorScheme="green" /> */}
-                  </div>
                 </div>
-
-                <div className="flex flex-row-reverse w-full">
-                    <span
-                      className="flex items-center gap-1 text-[16px] pt-1 justify-end font-light text-gray-500">{((data.Total_Gas_Boiler / getLimit.Limit_Gas )*100).toFixed(1)}%
+                <div className="space-y-1 pl-[88px]">
+                  <Progress hasStripe value={data.Total_Gas_Boiler} max={getLimit.Limit_Gas} className="rounded-full"
+                    sx={{
+                      '& > div': { backgroundColor: '#FEE2E2' }, // Warna kustom untuk bar
+                      backgroundColor: isDarkMode ? '#282828' : '#ffffff' // Warna kustom untuk track
+                    }} />
+                  <div className="flex justify-end">
+                    <span className="flex items-center gap-1 text-[16px] pt-1 justify-end font-light text-gray-500">{((data.Total_Gas_Boiler / getLimit.Limit_Gas )*100).toFixed(1)}%
                       <svg
                         className="fill-gray-500"
                         width="10"
@@ -906,6 +898,7 @@
                       </svg>
                     </span>
                   </div>
+                </div>
               </div>
 
               <div className="flex items-center p-6 shadow-buatcard bg-coba rounded-lg dark:border-strokedark">

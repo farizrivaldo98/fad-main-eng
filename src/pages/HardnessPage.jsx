@@ -55,8 +55,6 @@ function HardnessPage() {
     document.documentElement.getAttribute("data-theme") === "dark"
   );
 
-
-
   // const fetchData = async () => {
   //   let response = await Axios.get("http://10.126.15.137:8002/part/getHardnessData");
   //   setDataInstrument(response.data);
@@ -216,18 +214,16 @@ function HardnessPage() {
       // fetching table data and 3 charts
       await fetchGraphHardness();
       await fetchTableData1();
-
-      // Delay to ensure that the loading state is reset before showing the toast
-
-        toast.success("Data successfully loaded!", { autoClose: 3000 });
-
     } catch (err) {
       console.error("Error fetching data:", err);
       setError("Failed to fetch data. Please try again.");
       toast.error("Failed to fetch data. Please try again."); // Show error toast
     } finally {
-      setLoading(false); // Stop spinner
-      console.log("Finished fetching data, stopping spinner...");
+      const delay = 2000; // 2 seconds in milliseconds
+        setTimeout(() => {
+          setLoading(false); // Stop spinner
+          console.log("Finished fetching data, stopping spinner...");
+        }, delay);
     }
   };
 

@@ -231,7 +231,7 @@ const Moisture = () => {
   };
   
   return (
-    <div>
+    <>
       <div>
         <h1 className="block text-center text-text font-medium text-4xl antialiased hover:subpixel-antialiased; p-6 pb-3">
           MOISTURE
@@ -256,189 +256,189 @@ const Moisture = () => {
           ) : (
             <CanvasJSChart options={moistureOptions} />
           )}
-          </div>
-          <br />
-          <div
-            className="flex flex-row justify-center"
-            direction="row"
-            align="center">
-            <div className="main flex flex-col xl:flex-row gap-x-2 xl:gap-x-6">
-              <div>
-                <label
-                  htmlFor="date"
-                  className="block text-sm font-medium leading-6 text-text">
-                  Start Date
-                </label>
-                <Input
-                  type="date"
-                  placeholder="Select Start Date"
-                  size="md"
-                  value={startDate}
-                  onChange={handleStartDateChange}
-                  css={{
-                    "&::-webkit-calendar-picker-indicator": {
-                      color: isDarkMode ? "white" : "black",
-                      filter: isDarkMode ? "invert(1)" : "none",
-                    },
-                  }}
-                  sx={{
-                    border: "1px solid",
-                    borderColor: borderColor,
-                    borderRadius: "0.395rem",
-                    background: "var(--color-background)", // background color from Tailwind config
-          
-                    _hover: {
-                      borderColor: hoverBorderColor,
-                    },
-                  }}
-                />
-              </div>
-              <div>
-                <label
-                  htmlFor="date"
-                  className="block text-sm font-medium leading-6 text-text">
-                  Finish Date
-                </label>
-                <Input
-                  type="date"
-                  placeholder="Select Finish Date"
-                  size="md"
-                  value={finishDate}
-                  onChange={handleFinishDateChange}
-                  css={{
-                    "&::-webkit-calendar-picker-indicator": {
-                      color: isDarkMode ? "white" : "black",
-                      filter: isDarkMode ? "invert(1)" : "none",
-                    },
-                  }}
-                  sx={{
-                    border: "1px solid",
-                    borderColor: borderColor,
-                    borderRadius: "0.395rem",
-                    background: "var(--color-background)", // background color from Tailwind config
-          
-                    _hover: {
-                      borderColor: hoverBorderColor,
-                    },
-                  }}
-                />
-              </div>
-              <div className="xl:mt-8 sm:mt-2">
-                <Button
-                  colorScheme="blue"
-                  onClick={() => handleSubmit()}
-                >
-                  Submit
-                </Button>
-              </div>
+        </div>
+        <br />
+        <div
+          className="flex flex-row justify-center"
+          direction="row"
+          align="center">
+          <div className="main flex flex-col xl:flex-row gap-x-2 xl:gap-x-6">
+            <div>
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium leading-6 text-text">
+                Start Date
+              </label>
+              <Input
+                type="date"
+                placeholder="Select Start Date"
+                size="md"
+                value={startDate}
+                onChange={handleStartDateChange}
+                css={{
+                  "&::-webkit-calendar-picker-indicator": {
+                    color: isDarkMode ? "white" : "black",
+                    filter: isDarkMode ? "invert(1)" : "none",
+                  },
+                }}
+                sx={{
+                  border: "1px solid",
+                  borderColor: borderColor,
+                  borderRadius: "0.395rem",
+                  background: "var(--color-background)", // background color from Tailwind config
+        
+                  _hover: {
+                    borderColor: hoverBorderColor,
+                  },
+                }}
+              />
+            </div>
+            <div>
+              <label
+                htmlFor="date"
+                className="block text-sm font-medium leading-6 text-text">
+                Finish Date
+              </label>
+              <Input
+                type="date"
+                placeholder="Select Finish Date"
+                size="md"
+                value={finishDate}
+                onChange={handleFinishDateChange}
+                css={{
+                  "&::-webkit-calendar-picker-indicator": {
+                    color: isDarkMode ? "white" : "black",
+                    filter: isDarkMode ? "invert(1)" : "none",
+                  },
+                }}
+                sx={{
+                  border: "1px solid",
+                  borderColor: borderColor,
+                  borderRadius: "0.395rem",
+                  background: "var(--color-background)", // background color from Tailwind config
+        
+                  _hover: {
+                    borderColor: hoverBorderColor,
+                  },
+                }}
+              />
+            </div>
+            <div className="xl:mt-8 sm:mt-2">
+              <Button
+                colorScheme="blue"
+                onClick={() => handleSubmit()}
+              >
+                Submit
+              </Button>
             </div>
           </div>
-          <br />
-          <div className="flex justify-center gap-6 mt-2">
-            <Button colorScheme="blue" onClick={() => handleShowAll()}>
-              Show All Data
-            </Button>
-            <div                   
-            sx={{
-              border: "1px solid",
-              borderColor: borderColor,
-              borderRadius: "0.395rem",
-              background: "var(--color-background)", // background color from Tailwind config
-    
-              _hover: {
-                borderColor: hoverBorderColor,
-              },
-            }}>
-              <Select
-                value={rowsPerPage}
-                onChange={(e) => setRowsPerPage(Number(e.target.value))}
-                width="80px">
-                <option value={5}>5</option>
-                <option value={10}>10</option>
-                <option value={20}>20</option>
-                <option value={40}>40</option>
-                <option value={60}>60</option>
-                <option value={100}>100</option>
-              </Select>
-            </div>
-            <Button colorScheme="red" onClick={() => handleHideAll()}>
-              Hidden All Data
-            </Button>
+        </div>
+        <br />
+        <div className="flex justify-center gap-6 mt-2">
+          <Button colorScheme="blue" onClick={() => handleShowAll()}>
+            Show All Data
+          </Button>
+          <div                   
+          sx={{
+            border: "1px solid",
+            borderColor: borderColor,
+            borderRadius: "0.395rem",
+            background: "var(--color-background)", // background color from Tailwind config
+  
+            _hover: {
+              borderColor: hoverBorderColor,
+            },
+          }}>
+            <Select
+              value={rowsPerPage}
+              onChange={(e) => setRowsPerPage(Number(e.target.value))}
+              width="80px">
+              <option value={5}>5</option>
+              <option value={10}>10</option>
+              <option value={20}>20</option>
+              <option value={40}>40</option>
+              <option value={60}>60</option>
+              <option value={100}>100</option>
+            </Select>
           </div>
-          <br /> 
-          {showAllData && (
-          <TableContainer  className="bg-card rounded-md mx-1" 
-          sx={{ 
-          overflowX: "auto", 
-          maxWidth: "94%", }}>
-            <Table key={colorMode} variant="simple" sx={{ minWidth: "1200px" /* Adjust as needed */ }}>
-              <TableCaption sx={{
-              color: tulisanColor,
-              }}>Imperial to metric conversion factors</TableCaption>
-              <Thead>
-                <Tr>
-                    <Th sx={{
-                  color: tulisanColor,
-                  }}>ID</Th>
-                    <Th sx={{
-                  color: tulisanColor,
-                  }}>Operator</Th>
-                    <Th sx={{
-                  color: tulisanColor,
-                  }}>Batch</Th>
-                    <Th sx={{
-                  color: tulisanColor,
-                  }}>Date</Th>
-                    <Th sx={{
-                  color: tulisanColor,
-                  }}>Limit Atas</Th>
-                    <Th sx={{
-                  color: tulisanColor,
-                  }}>Limit Bawah</Th>
-                    <Th sx={{
-                  color: tulisanColor,
-                  }}>Berat Awal</Th>
-                    <Th sx={{
-                  color: tulisanColor,
-                  }}>Berat Kering</Th>
-                    <Th sx={{
-                  color: tulisanColor,
-                  }}>Moisture</Th>
-                    <Th sx={{
-                  color: tulisanColor,
-                  }}>Result</Th>
-                    <Th sx={{
-                  color: tulisanColor,
-                  }}>Status</Th>
-                </Tr>
-              </Thead>
-              <Tbody>{renderInstrumentList()}</Tbody>
-            </Table>
-          </TableContainer>  
-          )}
-          <div className="flex justify-center items-center mt-4 gap-4">
-            <Button
-              onClick={handlePrevPage}
-              isDisabled={currentPage === 1}
-              colorScheme="blue"
-            >
-              Previous
-            </Button>
-            <span className="text-text">
-              Page {currentPage} of {Math.ceil(moistureData.length / rowsPerPage)}
-            </span>
-            <Button
-              onClick={handleNextPage}
-              isDisabled={currentPage === Math.ceil(moistureData.length / rowsPerPage)}
-              colorScheme="blue"
-            >
-              Next
-            </Button>
-          </div>
-          <ToastContainer position="top-center" autoClose={3000} 
-          hideProgressBar closeOnClick pauseOnHover draggable  />  
+          <Button colorScheme="red" onClick={() => handleHideAll()}>
+            Hidden All Data
+          </Button>
+        </div>
+        <br /> 
+        {showAllData && (
+        <TableContainer  className="bg-card rounded-md mx-1" 
+        sx={{ 
+        overflowX: "auto", 
+        maxWidth: "94%", }}>
+          <Table key={colorMode} variant="simple" sx={{ minWidth: "1200px" /* Adjust as needed */ }}>
+            <TableCaption sx={{
+            color: tulisanColor,
+            }}>Imperial to metric conversion factors</TableCaption>
+            <Thead>
+              <Tr>
+                  <Th sx={{
+                color: tulisanColor,
+                }}>ID</Th>
+                  <Th sx={{
+                color: tulisanColor,
+                }}>Operator</Th>
+                  <Th sx={{
+                color: tulisanColor,
+                }}>Batch</Th>
+                  <Th sx={{
+                color: tulisanColor,
+                }}>Date</Th>
+                  <Th sx={{
+                color: tulisanColor,
+                }}>Limit Atas</Th>
+                  <Th sx={{
+                color: tulisanColor,
+                }}>Limit Bawah</Th>
+                  <Th sx={{
+                color: tulisanColor,
+                }}>Berat Awal</Th>
+                  <Th sx={{
+                color: tulisanColor,
+                }}>Berat Kering</Th>
+                  <Th sx={{
+                color: tulisanColor,
+                }}>Moisture</Th>
+                  <Th sx={{
+                color: tulisanColor,
+                }}>Result</Th>
+                  <Th sx={{
+                color: tulisanColor,
+                }}>Status</Th>
+              </Tr>
+            </Thead>
+            <Tbody>{renderInstrumentList()}</Tbody>
+          </Table>
+        </TableContainer>  
+        )}
+        <div className="flex justify-center items-center mt-4 gap-4">
+          <Button
+            onClick={handlePrevPage}
+            isDisabled={currentPage === 1}
+            colorScheme="blue"
+          >
+            Previous
+          </Button>
+          <span className="text-text">
+            Page {currentPage} of {Math.ceil(moistureData.length / rowsPerPage)}
+          </span>
+          <Button
+            onClick={handleNextPage}
+            isDisabled={currentPage === Math.ceil(moistureData.length / rowsPerPage)}
+            colorScheme="blue"
+          >
+            Next
+          </Button>
+        </div>
+        <ToastContainer position="top-center" autoClose={3000} 
+        hideProgressBar closeOnClick pauseOnHover draggable  />  
       </div>  
-    </div>
+    </>
   );
 }
 
