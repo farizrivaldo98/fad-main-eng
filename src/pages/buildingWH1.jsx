@@ -43,45 +43,39 @@ export default function BuildingRnD() {
   const fetchWH1Data = async () => {
     setLoading(true); // Start spinner
     setError(null);   // Clear previous errors
-
+  
     try {
+      const params = {
+        area: Area,
+        start: startDate,
+        finish: finishDate,
+      };
+  
+      console.log("Fetching Suhu Data from URL:", "http://10.126.15.137:8002/part/BuildingWH1Suhu", params);
       let response = await axios.get(
         "http://10.126.15.137:8002/part/BuildingWH1Suhu", 
-        {
-          params: {
-            area: Area,
-            start: startDate,
-            finish: finishDate,
-          },
-        }
+        { params }
       );            
-        setSuhuData(response.data);
-
+      setSuhuData(response.data);
+      console.log(response.data);
+  
+      console.log("Fetching RH Data from URL:", "http://10.126.15.137:8002/part/BuildingWH1RH", params);
       let response1 = await axios.get(
         "http://10.126.15.137:8002/part/BuildingWH1RH",
-        {
-          params: {
-            area: Area,
-            start: startDate,
-            finish: finishDate,
-          },
-        }
+        { params }
       );            
-        setRHData(response1.data);
-
+      setRHData(response1.data);
+      console.log(response1.data);
+  
+      console.log("Fetching All Data from URL:", "http://10.126.15.137:8002/part/BuildingWH1All", params);
       let response2 = await axios.get(
         "http://10.126.15.137:8002/part/BuildingWH1All",
-        {
-          params: {
-            area: Area,
-            start: startDate,
-            finish: finishDate,
-          },
-        }
+        { params }
       );     
-        setAllDataWH1(response2.data); 
-        setIsTableVisible(true); // Show the table
-
+      setAllDataWH1(response2.data); 
+      console.log(response2.data);
+      setIsTableVisible(true); // Show the table
+  
       if (response.data.length !== 0 && response1.data.length !== 0){
         setState(false);
       } else {
@@ -164,14 +158,17 @@ export default function BuildingRnD() {
   let dateStart = (e) => {
     var dataInput = e.target.value;
     setStartDate(dataInput);
+    console.log(dataInput);
   };    
   let dateFinish = (e) => {
     var dataInput = e.target.value;
     setFinishDate(dataInput);
+    console.log(dataInput);
   };
   let getArea = (e) => {
     var dataInput = e.target.value;
     setArea(dataInput);
+    console.log(dataInput);
   };
 
   useEffect(() => {

@@ -597,14 +597,15 @@
                   </svg>
                   Manage dashboard
                 </button>
-                {userGlobal.level == 5 ? <button class="inline-flex px-5 py-3 text-text bg-coba border border-meta-2 dark:border-meta-4 hover:bg-gray-100 dark:hover:bg-boxdark focus:bg-purple-700 dark:focus:bg-purple-700 rounded-md ml-6 mb-3 shadow-md"
+                {userGlobal.level == 5 ? 
+                <button class="inline-flex px-5 py-3 text-text bg-coba border border-meta-2 dark:border-meta-4 hover:bg-gray-100 dark:hover:bg-boxdark focus:bg-purple-700 dark:focus:bg-purple-700 rounded-md ml-6 mb-3 shadow-md"
                 onClick={onOpen}>
                   <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-text -ml-1 mr-2">
                     <path strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                   </svg>
                   Create Bill
-                </button> : <></>  }
-                            
+                </button> : <></>  
+                }                            
               </div>
             </div>
 
@@ -724,26 +725,24 @@
                   activeCard === "NVMDP" ? "ring-4 ring-blue-500" : ""
                 }`}
                 onClick={() => handleCardClick("NVMDP")}>
-                <div className="flex w-full">
-                <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
-                  <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
-                    <path strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                </div>
+                <div className="flex items-center mb-1">
+                  <div className="inline-flex flex-shrink-0 items-center justify-center h-16 w-16 text-purple-600 bg-purple-100 rounded-full mr-6">
+                    <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="h-6 w-6">
+                      <path strokeLinecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                    </svg>
+                  </div>
                   <div>
                     <h1 className="text-2xl text-text font-bold font-DMSans">MVMDP</h1>
                     <span className="inline-block text-text text-xl font-semibold">{data.MVMDP ?? "Loading..."}</span>
                     <span className="block text-gray-500">KWh</span>
                     <span className="block text-green-700 text-xl font-semibold">{(data.MVMDP * dataTotalUang).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</span>
                   </div>
-                  <div className="mt-2 w-full">
-                      {/* <Progress hasStripe value={data.PDAM} max={getLimit.Limit_Air} colorScheme="green" /> */}
-                  </div>
                 </div>
-
-                <div className="flex flex-row-reverse w-full">
+                <div className="space-y-1 pl-[88px]">
+                    <Progress hasStripe value={data.PDAM} max={getLimit.Limit_Air} colorScheme="green" className="rounded-full"/>
+                    <div className="flex justify-end">
                     <span
-                      className="flex items-center gap-1 text-[16px] pt-1 justify-end font-light text-gray-500">{((data.MVMDP / getLimit.Limit_Listrik )*100).toFixed(1)}%
+                      className="flex items-center gap-1 text-[16px] pt-1 font-light text-gray-500">{((data.MVMDP / getLimit.Limit_Listrik )*100).toFixed(1)}%
                       <svg
                         className="fill-gray-500"
                         width="10"
@@ -759,6 +758,7 @@
                       </svg>
                     </span>
                   </div>
+                </div>
               </div>
               
               {/* <div className={`flex items-center p-8 bg-coba shadow-buatcard rounded-lg dark:border-strokedark cursor-pointer transform transition duration-300 hover:scale-105 active:scale-65 ${
@@ -890,7 +890,7 @@
 
                 <div className="flex flex-row-reverse w-full">
                     <span
-                      className="flex items-center gap-1 text-[16px] pt-1 justify-end font-light text-gray-500">{((data.Total_Gas_Boiler/getLimit.Limit_Gas )*100).toFixed(2)}%
+                      className="flex items-center gap-1 text-[16px] pt-1 justify-end font-light text-gray-500">{((data.Total_Gas_Boiler / getLimit.Limit_Gas )*100).toFixed(1)}%
                       <svg
                         className="fill-gray-500"
                         width="10"
