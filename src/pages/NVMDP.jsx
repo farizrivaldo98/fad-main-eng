@@ -1,8 +1,14 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useMemo } from "react";
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import FireHydrantAltIcon from '@mui/icons-material/FireHydrantAlt';
 import ConstructionIcon from '@mui/icons-material/Construction';
+import BallotIcon from '@mui/icons-material/Ballot';
 import { FaLandmark } from "react-icons/fa";
+import { GiPowerGenerator } from "react-icons/gi";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
+import axios from "axios";
+import   {Progress  } from "@chakra-ui/react";
+
 
 const NVMDP = () => {
     const [sdp1Produksi, setSdp1Produksi] = useState(null);
@@ -13,6 +19,10 @@ const NVMDP = () => {
     const [lvmdp1, setLvmdp1] = useState(null);
     const [solarPanel, setSolarPanel] = useState(null);
     const [solarPanel2, setSolarPanel2] = useState(null);
+    const [dataTotalUang, setDataTotalUang] = useState()
+    const [getJam, setGetJam] = useState({})
+    const [getParameter, setGetParameter] = useState({})
+    const [getLimit, setGetLimit] = useState({})
 
     const socketRef = useRef(null);
 
@@ -65,6 +75,8 @@ const NVMDP = () => {
   
     useEffect(() => {
       // Buat koneksi WebSocket
+
+      
       socketRef.current = new WebSocket("ws://10.126.15.137:1880/ws/test");
   
       socketRef.current.onopen = () => {
@@ -90,6 +102,7 @@ const NVMDP = () => {
           console.error("Error parsing WebSocket message:", error);
         }
       };
+
   
       socketRef.current.onerror = (error) => {
         console.error("WebSocket error:", error);
@@ -107,6 +120,67 @@ const NVMDP = () => {
       };
     }, []); // Kosongkan dependency array sehingga useEffect hanya berjalan sekali saat komponen di-mount
 
+    
+    useEffect( () => {
+
+      const fetchData = async () => {
+        try {
+          let response = await axios.get("http://10.126.15.137:8002/part/GetJam");
+          setGetJam (response.data[0]);
+          let response2 = await axios.get("http://10.126.15.137:8002/part/GetParameter")
+          setGetParameter(response2.data[0])
+          let response3 = await axios.get("http://10.126.15.137:8002/part/GetLimit")
+          setGetLimit(response3.data[0])
+
+          const inputValue1 = response2.data[0].Parameter_Listrik
+          const inputValue2 = response2.data[0].Parameter_Listrik_2
+          const startHours1 = response.data[0].Jam_Listrik_1
+          const endHours1 = response.data[0].Jam_Listrik_2
+          const startHours2 = response.data[0].Jam_Listrik_3
+          const endHours2 = response.data[0].Jam_Listrik_4
+  
+          const variableData = getTimeMoney(
+            inputValue1,
+            inputValue2,
+            startHours1,
+            endHours1,
+            startHours2,
+            endHours2
+          )
+           setDataTotalUang(variableData)
+          
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+      //console.log(getJam);
+      fetchData();         
+      const  getTimeMoney = ( value1, value2,startHour1, endHour1, startHour2, endHour2) => {
+        console.log(value1, value2,startHour1, endHour1, startHour2, endHour2);
+        
+        const now = new Date()
+        const createHour = now.getHours()
+        if (createHour >= startHour1 && createHour <= endHour1){
+          return value1
+        }else if (createHour >= startHour2 || createHour <= endHour2){
+          return value2
+        }
+      };
+    }, []);
+
+    const data = useMemo(() => {
+      const totalSolar = (solarPanel ?? 0) + (solarPanel2 ?? 0);
+      const lvmdpValue = lvmdp1 ?? 0;
+      const total = totalSolar + lvmdpValue;
+      
+      return [
+        { name: 'Total Solar', value: totalSolar, percentage: total > 0 ? ((totalSolar / total) * 100).toFixed(1) : '0' },
+        { name: 'LVMDP', value: lvmdpValue, percentage: total > 0 ? ((lvmdpValue / total) * 100).toFixed(1) : '0' }
+      ];
+    }, [solarPanel, solarPanel2, lvmdp1]);
+  
+    const COLORS = ['#4ade80', '#60a5fa']; // green for solar, blue for LVMDP
+
     useEffect(() => {
       const handleThemeChange = () => {
         const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -118,10 +192,242 @@ const NVMDP = () => {
   
       return () => observer.disconnect();
     }, []);
+
+      // Custom buat tooltip component
+    const CustomTooltip = ({ active, payload }) => {
+      if (!active || !payload || !payload.length) {
+        return null;
+      }
+
+      return (
+        <div className="bg-coba rounded-md shadow-md p-2">
+          <p className="text-sm text-text">{`${payload[0].name}: ${payload[0].value.toFixed(2)}`}</p>
+        </div>
+      );
+    };
+
+    const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }) => {
+      const RADIAN = Math.PI / 180;
+      const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+      const x = cx + radius * Math.cos(-midAngle * RADIAN);
+      const y = cy + radius * Math.sin(-midAngle * RADIAN);
+  
+      return (
+        <text 
+          x={x} 
+          y={y} 
+          textAnchor="middle" 
+          dominantBaseline="central"
+          className="text-sm text-text font-medium"
+        >
+          {`${data[index].percentage}%`}
+        </text>
+      );
+    };
   
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-2 transition delay-200">
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4 2xl:gap-7">
+      {/* First Column - Tall Chiller Card */}
+      <div className="xl:row-span-2">
+        <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer h-full">
+          <div className="flex items-center gap-4">
+            <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
+              <GiPowerGenerator size={31} className="flex-shrink-0 m-1 z-10 "/>
+            </div>
+            <h1 className="text-text text-2xl font-semibold font-DMSans">Inverter</h1>
+          </div>
+          <div className="grid grid-cols-2 border-b border-gray-300 mt-1">
+            <div className="py-1 px-4 text-center font-semibold text-text border-r border-gray-400 cursor-pointer
+            transform transition duration-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 active:scale-95"
+            onClick={() => setShowSolarPanel(true)}>
+              Solar Panel 1 - 6
+            </div>
+            <div className="py-1 px-4 text-center font-semibold text-text cursor-pointer
+            transform transition duration-300 hover:bg-gray-200 dark:hover:bg-gray-700 hover:scale-105 active:scale-95"
+            onClick={() => setShowSolarPanel2(true)}>
+              Solar Panel 7 - 12
+            </div>
+          </div>
+          <div className="grid grid-cols-2">
+            <div className="py-2 px-4 text-center text-text">
+              {solarPanel ?? "N/A"}
+            </div>
+            <div className="py-2 px-4 text-center text-text">
+              {solarPanel2 ?? "N/A"}
+            </div>
+          </div>
+          <div className="mt-2 flex items-end justify-between">
+            <div>
+              <h4 className="text-[28px] font-bold font-poppins text-text">
+              {((solarPanel ?? 0) + (solarPanel2 ?? 0))}
+              </h4>
+              <span className="text-[16px] gap-1 font-medium font-poppins text-text">Total</span>
+            </div>
+          </div>
+          <div className="h-64 w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={data}
+                  innerRadius="50%"
+                  outerRadius="80%"
+                  paddingAngle={5}
+                  dataKey="value"
+                  label={renderCustomizedLabel}
+                  labelLine={false}
+                >
+                  {data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                  ))}
+                </Pie>
+                <Tooltip 
+                  content={<CustomTooltip />}
+                  cursor={false}
+                />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+            <div className="flex justify-center gap-2">
+              {[...data].reverse().map((entry, index) => (
+                <div key={`legend-${index}`} className="flex items-center">
+                  <div 
+                    className="w-3 h-3 rounded-full mr-2" 
+                    style={{ backgroundColor: COLORS[COLORS.length - 1 - index]  }} 
+                  />
+                  <span className="text-text">
+                    {entry.name}: {entry.value.toFixed(2)}
+                  </span>
+                </div>
+              ))}
+            </div>
+        </div>
+      </div>
+
+      {/* Right Side Cards - Top Row */}
+      <div className="xl:col-span-3 w-full">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:h-full xl:grid-cols-3 xl:h-64 2xl:gap-7">
+          {/* Card LVMDP */}
+          <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer"
+            onClick={() => setShowPopup(true)}>
+            <div className="flex items-center gap-4">
+              <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">
+                <BallotIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10" />
+              </div>
+              <h1 className="text-text text-2xl font-semibold font-DMSans truncate">LVMDP</h1>
+            </div>
+            <div className="mt-7 flex items-end justify-between">
+              <div>
+                <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{lvmdp1 ?? "N/A"}</h4>
+                <span className="text-[16px] font-medium font-poppins text-black dark:text-white">Total</span>
+                <span className="block text-green-700 text-xl font-semibold">{(lvmdp1*dataTotalUang).toLocaleString('id-ID', { style: 'currency', currency: 'IDR' })}</span>
+
+                <div className="flex-row mt-2">
+                <Progress hasStripe value={lvmdp1} max={getLimit.Limit_Listrik} colorScheme="green" />
+                <span className="text-gray-500">{((lvmdp1/getLimit.Limit_Listrik )*100).toFixed(2)} %</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* Card Chiller */}
+          <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer"
+            onClick={() => setShowChillerPopup(true)}>
+            <div className="flex items-center gap-4">
+              <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
+                <AcUnitIcon sx={{ fontSize: 32 }} className="overflow-hidden m-1 z-10 "/>
+              </div>
+              <h1 className="text-text text-2xl font-semibold font-DMSans truncate">Chiller</h1>
+            </div>
+            <div className="mt-7 flex items-end justify-between">
+              <div>
+                <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{pp1Chiller ?? "N/A"}</h4>
+                <span className="text-[16px] font-medium font-poppins text-black dark:text-white">Total</span>
+              </div>
+            </div>
+          </div>
+          {/* Card Hydrant */}
+          <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer"
+            onClick={() => setShowHydrantPopup(true)}>
+            <div className="flex items-center gap-4">
+              <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
+                <FireHydrantAltIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
+              </div>
+              <h1 className="text-text text-2xl font-semibold font-DMSans truncate">Hydrant</h1>
+            </div>
+            <div className="mt-7 flex items-end justify-between">
+              <div>
+                <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{pp2Hydrant ?? "N/A"}</h4>
+                <span className="text-[16px] font-medium font-poppins text-black dark:text-white">Total</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Row Cards */}
+      <div className="xl:col-span-3 w-full">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:w-[720px] xl:w-full xl:grid-cols-3 xl:h-64 2xl:gap-7">
+          {/* Utility Card */}
+          <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer min-w-0"
+            onClick={() => setShowUtil(true)}>
+            <div className="flex items-center gap-4">
+              <div className="flex-shrink-0 flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
+                <ConstructionIcon sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10" />
+              </div>
+              <h1 className="text-text text-2xl font-semibold font-DMSans truncate">Utility</h1>
+            </div>
+            <div className="mt-4 flex items-end justify-between">
+              <div>
+                <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">
+                  {sdp1Utility ?? "N/A"}
+                </h4>
+                <span className="text-[16px] font-medium font-poppins text-black dark:text-white">
+                  Total
+                </span>
+              </div>
+            </div>
+          </div>
+          {/* SDP1 Card */}
+          <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer min-w-0"
+            onClick={() => setShowProd(true)}>
+            <div className="flex items-center gap-4">
+              <div className="flex-shrink-0 flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
+                <FaLandmark sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
+              </div>
+              <h1 className="text-text text-2xl font-semibold font-DMSans truncate">SDP 1 Production</h1>
+            </div>
+            <div className="mt-4 flex items-end justify-between">
+              <div>
+                <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">
+                  {sdp1Produksi ?? "N/A"}
+                </h4>
+                <span className="text-[16px] font-medium font-poppins text-black dark:text-white">
+                  Total
+                </span>
+              </div>
+            </div>
+          </div>
+          {/* SDP2 Card */}
+          <div className="rounded-md mt-2 border border-border px-7.5 py-6 shadow-buatcard bg-coba cursor-pointer min-w-0"
+            onClick={() => setShowProd2(true)}>
+            <div className="flex items-center gap-4">
+              <div className="flex-shrink-0 flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran relative">
+                <FaLandmark sx={{ fontSize: 32 }} className="flex-shrink-0 m-1 z-10 "/>
+              </div>
+              <h1 className="text-text text-2xl font-semibold font-DMSans truncate">SDP 2 Production</h1>
+            </div>
+            <div className="mt-4 flex items-end justify-between">
+              <div>
+                <h4 className="text-[28px] font-bold font-poppins text-black dark:text-white">{sdp2Produksi ?? "N/A"}</h4>
+                <span className="text-[16px] font-medium font-poppins text-black dark:text-white">Total</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+{/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6 xl:grid-cols-4 2xl:gap-2 transition delay-200 mt-4">
         <div className="rounded-md mt-2 flex flex-col border border-border px-7.5 py-6 shadow-buatcard bg-coba">
           <div className="flex items-center gap-4">
             <div className="flex h-[46px] w-[46px] items-center justify-center rounded-full bg-lingkaran">

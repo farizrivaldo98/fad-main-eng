@@ -417,7 +417,7 @@ function BuildingEMS() {
             }}
           />
         </div>
-        <div className="ml-4 mt-7 ">
+        <div className="ml-4 mt-7 truncate">
           <Button onClick={() => getSubmit()} colorScheme="blue">
             Submit
           </Button>
@@ -432,7 +432,7 @@ function BuildingEMS() {
             </Button>
         </div>
       </div>
-      <div className="block bg-card rounded-lg shadow-lg p-1">
+      <div className="block bg-card rounded-lg shadow-lg p-1 aspect-ratio-container">
       {loading ? (
       <div className="flex flex-col items-center">
         <Spinner
@@ -446,7 +446,7 @@ function BuildingEMS() {
       ) : error ? (
         <div className="text-red-500 flex flex-col items-center">No available data</div>
       ) : (
-        <CanvasJSChart className="" options={options} />
+        <CanvasJSChart options={options} />
       )}
       </div>
       <Stack

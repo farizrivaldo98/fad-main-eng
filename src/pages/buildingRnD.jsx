@@ -417,7 +417,7 @@ export default function BuildingRnD() {
           </Button>
         </div>
       </Stack>
-      <div className="flex flex-row justify-center mx-12 p-1 bg-card rounded-md "> 
+      <div className="flex flex-row justify-center mx-12 p-1 bg-card rounded-lg aspect-ratio-container"> 
       {loading ? (
       <Spinner
         thickness="4px"
