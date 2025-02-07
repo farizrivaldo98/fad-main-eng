@@ -14,30 +14,55 @@ const ResetPass = () => {
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
 
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [passwordError, setPasswordError] = useState("");
+
+    const emailHendeler = (event) => {
+        setEmail(event.target.value);
+      };
 
     const passwordHendeler = (event) => {
         setPassword(event.target.value);
+        if (confirmPassword && event.target.value !== confirmPassword) {
+            setPasswordError("Passwords do not match");
+          } else {
+            setPasswordError("");
+          }
       };
+
+    const confirmPasswordHandler = (event) => {
+        setConfirmPassword(event.target.value);
+        if (password && event.target.value !== password) {
+            setPasswordError("Passwords do not match");
+        } else {
+            setPasswordError("");
+        }
+    };
 
     const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
     };
     
     const handleRegister = () => {
-        if (!password) {
+        if (!password || !confirmPassword) {
           toast.error("All fields are required!");
+          return;
+        }
+        if (password !== confirmPassword) {
+          toast.error("Passwords do not match!");
           return;
         }
 
         const userPass = {
             password,
-          };
+        };
 
-        //   dispatch(registerData(userPass));
-        
+        // dispatch(registerData(userPass));
+        toast.success("Password reset successfully!");
         setTimeout(() => {
-        navigate("/login"); // Redirect to login page after registration
+            navigate("/login"); // Redirect to login page after registration
         }, 2000);
     };
 
@@ -53,6 +78,21 @@ const ResetPass = () => {
                     <div>
                         <span className="text-sm text-white"></span>
                         <h1 className="text-2xl font-bold mt-1 text-white">Create a New Password</h1>
+                    </div>
+                    {/* Email Input */}
+                    <div className="mt-3">
+                    <label className="block text-md mb-2 text-white" htmlFor="email">Email</label>
+                    <input
+                        className="px-4 w-full border-2 border-white bg-hitam2 py-3 rounded-md text-sm outline-none text-white"
+                        type="email"
+                        id="email-address"
+                        name="email"
+                        autoComplete="email"
+                        required
+                        onChange={emailHendeler}
+                        placeholder="Enter Email"
+                        // onKeyDown={handleKeyDown}
+                    />
                     </div>
                     {/* Password Input */}
                     <div className="my-3 relative">
@@ -76,6 +116,29 @@ const ResetPass = () => {
                         {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
                     </button>
                     </div>
+                    {/* Confirm Password Input */}
+                    <div className="my-3 relative">
+                    <label className="block text-md mb-2 text-white" htmlFor="password">Confirm Password</label>
+                    <input
+                        className="px-4 w-full border-2 border-white bg-hitam2 py-3 rounded-md text-sm outline-none text-white"
+                        type={showPassword ? "text" : "password"} // Toggle between text and password
+                        name="password"
+                        id="password"
+                        value={confirmPassword}
+                        autoComplete="current-password"
+                        required
+                        onChange={confirmPasswordHandler}
+                        placeholder="Enter Password"
+                    />
+                    {/* Eye icon inside password field */}
+                    <button
+                        type="button"
+                        onClick={togglePasswordVisibility}
+                        className="absolute right-4 top-[45px] w-5 cursor-pointer text-white focus:outline-none">
+                        {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                    </button>
+                    </div>
+
                     {/* Register Button */}
                     <div className="">
                     <button className="mt-4 mb-3 w-full bg-hijau hover:bg-hijau2 text-white py-2 rounded-md transition-all duration-300"

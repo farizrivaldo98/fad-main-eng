@@ -85,7 +85,7 @@ function App() {
     // Separate layout for landing page, without grid
     return (
       <Routes>
-        <Route path="/resetpassr" element={<ResetPass />} />
+        <Route path="/resetpass" element={<ResetPass />} />
       </Routes>
     );
   }

@@ -120,56 +120,63 @@ const HistoryTabelIsi = () => {
         <div className="space-y-6 md:space-y-0 xl:flex xl:items-start xl:space-x-4">
           <div className="flex flex-col space-y-4 xl:w-1/3">
             <div className="space-y-2">
-            
+              <Select className="text-sm font-medium text-text" value={selectedEndpoint} onChange={(e) => setSelectedEndpoint(e.target.value)}>
+                <option value="">Select an option</option>
+                  {endpoints.map((endpoint) => (
+                <option key={endpoint.value} value={endpoint.value}>
+                  {endpoint.label}
+                </option>
+                ))}
+              </Select>   
+            </div>
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-text">Rows</label>
+              <Select
+                value={rowsPerPage}
+                onChange={(e) => setRowsPerPage(Number(e.target.value))}
+                width="80px"
+                sx={{
+                  border: "1px solid",
+                  borderColor: borderColor,
+                  borderRadius: "0.395rem",
+                  background: "var(--color-background)",
+                  _hover: {
+                    borderColor: hoverBorderColor,
+                  },
+                }}
+              >
+                <option value={10}>10</option>
+                <option value={20}>20</option>
+                <option value={40}>40</option>
+                <option value={60}>60</option>
+                <option value={100}>100</option>
+              </Select>
             </div>
            </div>
-        </div>
-        <Select value={selectedEndpoint} onChange={(e) => setSelectedEndpoint(e.target.value)}>
-          <option value="">Select an option</option>
-          {endpoints.map((endpoint) => (
-            <option key={endpoint.value} value={endpoint.value}>
-              {endpoint.label}
-            </option>
-          ))}
-        </Select>
-        <Button onClick={fetchData} colorScheme="blue" className="w-40 mt-8">Submit</Button>
+           <div className="flex flex-col space-y-2">
+              <Button onClick={fetchData} colorScheme="blue" className="w-40 mt-8">Submit</Button>
+              <Button
+                className="w-40 mt-2"
+                colorScheme="red"
+                onClick={() => setIsTableVisible(!isTableVisible)}
+              >
+                {isTableVisible ? "Hide All Data" : "Show All Data"}
+              </Button>
+           </div>
+           
+          </div>
+
+        
       </div>
       <div>
       <div className="col-span-1 xl:flex xl:flex-none xl:w-20 flex-col ">
-          <label className="block text-sm font-medium leading-4 text-text">
-            Rows
-          </label>
-          <Select
-            value={rowsPerPage}
-            onChange={(e) => setRowsPerPage(Number(e.target.value))}
-            width="80px"
-            sx={{
-              border: "1px solid",
-              borderColor: borderColor,
-              borderRadius: "0.395rem",
-              background: "var(--color-background)",
-              _hover: {
-                borderColor: hoverBorderColor,
-              },
-            }}
-          >
-            <option value={10}>10</option>
-            <option value={20}>20</option>
-            <option value={40}>40</option>
-            <option value={60}>60</option>
-            <option value={100}>100</option>
-          </Select>
+          
+          
         </div>
-        <Button
-          className="w-40 mt-2"
-          colorScheme="red"
-          onClick={() => setIsTableVisible(!isTableVisible)}
-        >
-          {isTableVisible ? "Hide All Data" : "Show All Data"}
-        </Button>
+
       </div>
       {isTableVisible && (
-        <div className="table-fixed mt-6">
+        <div className="flex-1">
           <TableContainer className="bg-card rounded-md">
             <Table variant="simple">
               <TableCaption>Motor Vibration Data</TableCaption>
