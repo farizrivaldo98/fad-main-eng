@@ -111,9 +111,19 @@ const HistoryTabelIsi = () => {
     }, []);
 
   return (
-    <div>
-      <h1>Data Viewer</h1>
+    <>
+    <div className="w-full max-w-6xl mx-auto">
       <div>
+        <h1 className="text-2xl font-bold text-text">Data Viewer</h1>
+      </div>   
+      <div>
+        <div className="space-y-6 md:space-y-0 xl:flex xl:items-start xl:space-x-4">
+          <div className="flex flex-col space-y-4 xl:w-1/3">
+            <div className="space-y-2">
+            
+            </div>
+           </div>
+        </div>
         <Select value={selectedEndpoint} onChange={(e) => setSelectedEndpoint(e.target.value)}>
           <option value="">Select an option</option>
           {endpoints.map((endpoint) => (
@@ -165,9 +175,18 @@ const HistoryTabelIsi = () => {
               <TableCaption>Motor Vibration Data</TableCaption>
               <Thead>
                 <Tr>
-                  <Th className="w-3/12 text-center px-6">No</Th>
-                  <Th className="w-6/12 text-center px-6">Data Name</Th>
-                  <Th className="w-3/12 text-center px-6">Date</Th>
+                  <Th className="w-3/12 text-center px-6"
+                  sx={{
+                    color: tulisanColor,
+                    }}>No</Th>
+                  <Th className="w-6/12 text-center px-6"
+                  sx={{
+                    color: tulisanColor,
+                    }}>Data Name</Th>
+                  <Th className="w-3/12 text-center px-6"
+                  sx={{
+                    color: tulisanColor,
+                    }}>Date</Th>
                 </Tr>
               </Thead>
               <Tbody>{renderData()}</Tbody>
@@ -187,7 +206,8 @@ const HistoryTabelIsi = () => {
       )}
       {loading && <p>Loading...</p>}
       {error && <p>Error fetching data</p>}
-    </div>
+      </div>
+    </>
   )
 }
 

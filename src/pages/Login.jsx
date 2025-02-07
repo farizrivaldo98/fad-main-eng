@@ -16,6 +16,7 @@ function Login () {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
   const emailHendeler = (event) => {
     setEmail(event.target.value);
@@ -33,6 +34,9 @@ function Login () {
       addLogin();
     }
   };
+  const handleRememberMe = (event) => {
+    setRememberMe(event.target.checked);
+  };
 
   const addLogin = async () => {
     if (!email || !password) {
@@ -49,6 +53,7 @@ function Login () {
     
 
     if (loginSuccess) {
+
       setTimeout(() => {
         navigate('/dashboard'); // Redirect to Stopwatch after 2 seconds
       }, 2000);
@@ -121,7 +126,7 @@ function Login () {
             {/* Remember Me and Forgot Password */}
             <div className="flex justify-between">
               <div>
-                <input className="cursor-pointer" type="checkbox" name="rememberme" />
+                <input className="cursor-pointer" type="checkbox" name="rememberme"  onChange={handleRememberMe} />
                 <span className="text-sm text-white"> Remember Me</span>
               </div>
               <span className="text-sm text-blue-700 hover:underline cursor-pointer" 

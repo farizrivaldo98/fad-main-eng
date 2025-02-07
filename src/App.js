@@ -29,7 +29,7 @@ import MachineHistorical from "./pages/MachineHistorical";
 import BatchRecord from "./pages/BatchRecord";
 import HistoryTabel from "./pages/HistoryTabel";
 import LandingPage from "./pages/LandingPage";
-import Header from "./components/header";
+import ResetPass from "./pages/ResetPass";
 import Dashboard from "./pages/Dashboard";
 import Chart02 from "./pages/chart02";
 
@@ -78,6 +78,14 @@ function App() {
     return (
       <Routes>
         <Route path="/register" element={<Register />} />
+      </Routes>
+    );
+  }
+  if (location.pathname === "/resetpass") {
+    // Separate layout for landing page, without grid
+    return (
+      <Routes>
+        <Route path="/resetpassr" element={<ResetPass />} />
       </Routes>
     );
   }
