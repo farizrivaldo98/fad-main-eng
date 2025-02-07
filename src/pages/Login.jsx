@@ -28,6 +28,12 @@ function Login () {
     setShowPassword((prev) => !prev);
   };
 
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      addLogin();
+    }
+  };
+
   const addLogin = async () => {
     if (!email || !password) {
       toast.error("Email and password are required!");
@@ -84,6 +90,7 @@ function Login () {
                   required
                 onChange={emailHendeler}
                 placeholder="Enter Email"
+                onKeyDown={handleKeyDown}
               />
             </div>
 
@@ -100,6 +107,7 @@ function Login () {
                   required
                 onChange={passwordHendeler}
                 placeholder="Enter Password"
+                onKeyDown={handleKeyDown}
               />
               {/* Eye icon inside password field */}
               <button

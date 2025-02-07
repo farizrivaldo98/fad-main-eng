@@ -726,7 +726,7 @@
                 <div className="space-y-1 pl-[88px]">
                     <Progress hasStripe value={data.MVMDP} max={getLimit.Limit_Listrik} className="rounded-full" sx={{
                     '& > div': { backgroundColor: '#F3E8FF' }, // Warna kustom untuk bar
-                    backgroundColor: isDarkMode ? '#282828' : '#ffffff' // Warna kustom untuk track
+                    backgroundColor: isDarkMode ? '#282828' : '#ededed' // Warna kustom untuk track
                   }} />
                     <div className="flex justify-end">
                     <span
@@ -803,7 +803,7 @@
                   <Progress hasStripe value={data.PDAM} max={getLimit.Limit_Air} className="rounded-full"
                   sx={{
                     '& > div': { backgroundColor: '#DCFCE7' }, // Warna kustom untuk bar
-                    backgroundColor: isDarkMode ? '#282828' : '#ffffff' // Warna kustom untuk track
+                    backgroundColor: isDarkMode ? '#282828' : '#ededed' // Warna kustom untuk track
                   }} />
                   <div className="flex justify-end">
                     <span
@@ -879,7 +879,7 @@
                   <Progress hasStripe value={data.Total_Gas_Boiler} max={getLimit.Limit_Gas} className="rounded-full"
                     sx={{
                       '& > div': { backgroundColor: '#FEE2E2' }, // Warna kustom untuk bar
-                      backgroundColor: isDarkMode ? '#282828' : '#ffffff' // Warna kustom untuk track
+                      backgroundColor: isDarkMode ? '#282828' : '#ededed' // Warna kustom untuk track
                     }} />
                   <div className="flex justify-end">
                     <span className="flex items-center gap-1 text-[16px] pt-1 justify-end font-light text-gray-500">{((data.Total_Gas_Boiler / getLimit.Limit_Gas )*100).toFixed(1)}%

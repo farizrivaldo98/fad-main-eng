@@ -12,6 +12,7 @@ import EngineeringIcon from '@mui/icons-material/Engineering';
 import EngineeringOutlinedIcon from '@mui/icons-material/EngineeringOutlined';
 import DashboardOutlinedIcon from '@mui/icons-material/DashboardOutlined';
 import MenuOpenSharpIcon from '@mui/icons-material/MenuOpenSharp';
+import TableViewIcon from '@mui/icons-material/TableView';
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -318,6 +319,10 @@ function Sidebar() {
         name: "Batch Record",
         icon: <AssignmentIcon size={21} className="flex-shrink-0 m-[2px] gap-y-1"/>,
         path: "/BatchRecord",
+      },{
+        name: "History Tabel",
+        icon: <TableViewIcon size={21} className="flex-shrink-0 m-[2px] gap-y-1"/>,
+        path: "/HistoryTabel",
       });
     }
     // Add more items as needed for higher levels

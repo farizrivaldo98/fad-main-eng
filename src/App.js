@@ -27,6 +27,7 @@ import Utility from "./pages/Utility";
 import Stopwatch from "./pages/Stopwatch";
 import MachineHistorical from "./pages/MachineHistorical";
 import BatchRecord from "./pages/BatchRecord";
+import HistoryTabel from "./pages/HistoryTabel";
 import LandingPage from "./pages/LandingPage";
 import Header from "./components/header";
 import Dashboard from "./pages/Dashboard";
@@ -123,6 +124,7 @@ function App() {
           <Route path="/HistoricalMachine" element={<MachineHistorical />} />
           <Route path="/BatchRecord" element={<BatchRecord />} />
           <Route path="/Chart02" element={<Chart02 />} />
+          <Route path="/HistoryTabel" element={<HistoryTabel />} />
         </Routes>
       </div>
     );

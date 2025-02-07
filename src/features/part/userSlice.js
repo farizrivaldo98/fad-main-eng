@@ -76,17 +76,40 @@ export function loginData(data) {
 
 export function CheckLogin(token) {
   return async (dispatch) => {
-    let respons = await Axios.post(
-      "http://10.126.15.137:8002/part/check-Login",
-      {},
-      {
-        headers: {
-          authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    if (respons) {
-      dispatch(setUser(respons.data.data));
+try {
+      
+  let respons = await Axios.post(
+    "http://10.126.15.137:8002/part/check-Login",
+    {},
+    {
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
     }
+  );
+
+      if (respons) {
+      
+        dispatch(setUser(respons.data.data));
+  
+      }
+    } catch (error) {
+
+      
+      if (error.response && error.response.status === 401) {
+        // Jika error 401, hapus token dan arahkan ke halaman login
+        localStorage.removeItem("user_token");
+        console.log("Token tidak valid, mengarahkan ke halaman login");
+
+      } else {
+        console.log("Terjadi kesalahan:", error);
+      }
+      
+    }
+
+
+
+    
+
   };
 }
