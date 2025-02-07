@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios';
 
 const ResetPass = () => {
     const dispatch = useDispatch();
@@ -45,9 +46,10 @@ const ResetPass = () => {
     setShowPassword((prev) => !prev);
     };
     
-    const handleRegister = () => {
+    const handleRegister = async () => {
         if (!password || !confirmPassword) {
           toast.error("All fields are required!");
+
           return;
         }
         if (password !== confirmPassword) {
@@ -59,11 +61,23 @@ const ResetPass = () => {
             password,
         };
 
-        // dispatch(registerData(userPass));
-        toast.success("Password reset successfully!");
-        setTimeout(() => {
-            navigate("/login"); // Redirect to login page after registration
-        }, 2000);
+        try {
+            const response = await axios.post("http://10.126.15.137:8002/part/changePassword", {
+                email: email,
+                newPassword: password
+            });
+            
+            if (response.status === 204) {
+                toast.success("Password reset successfully!");
+                setTimeout(() => {
+                    navigate("/login"); // Redirect to login page after registration
+                }, 2000);
+            } else {
+                toast.error("Failed to reset password. Please try again.");
+            }
+        } catch (error) {
+            toast.error("An error occurred. Please try again.");
+        }
     };
 
   return (
