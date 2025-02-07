@@ -62,7 +62,7 @@ const ResetPass = () => {
     };
 
     try {
-      const response = await axios.post(
+      const response = await axios.patch(
         "http://10.126.15.137:8002/part/changePassword",
         {
           email: email,
